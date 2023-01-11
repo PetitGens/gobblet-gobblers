@@ -76,7 +76,7 @@ typedef struct board_s * board;
  * This set includes references to an 'empty' size, for representing no piece at all. 
  * They are ordered by increasing size, so that they can be compared with < or >.
  */
-enum sizes_e {NONE, SMALL, MEDIUM, LARGE};
+enum sizes_e {NONE, SMALL, MEDIUM, LARGE, CANCEL_SIZE, EXIT_SIZE};
 
 /**
  * @brief the different sizes of pieces.
@@ -114,7 +114,7 @@ enum players_e {
 	NO_PLAYER, 
 	PLAYER_1, 
 	PLAYER_2
-};
+	};
 
 typedef enum players_e player;
 
@@ -221,11 +221,12 @@ int get_nb_piece_in_house(board game, player checked_player, size piece_size);
 /**
  * @brief Adds a piece on the board if possible.
  *
- * The piece is taken from the player's house. 
+ * The piece is taken from the current player's house. 
  * Whether the piece is available is tested. 
  * The piece is then placed on the board, 
- * provided all the pieces on that place are smaller than the current piece, 
- * covering any existing smaller piece.
+ * covering any existing smaller piece,
+ * provided all the pieces on that place are smaller than the current piece.
+ * Then it changes the players turn.
  * 
  * If placing the piece is not possible, this returns a positive return_code
  * encoding the problem identified: 
@@ -235,7 +236,6 @@ int get_nb_piece_in_house(board game, player checked_player, size piece_size);
  *   3. TARGET: the chosen piece is available but to small to be put at the target place.
  *
  * @param game the game where to add a piece.
- * @param current_player the player whose piece is to be added.
  * @param piece_size the size of the piece to add.
  * @param line the line number of where to place the piece.
  * @param column the column number of where to place the piece.
@@ -245,6 +245,8 @@ enum return_code place_piece(board game, size piece_size, int line, int column);
 
 /**
  * @brief Moves a piece from a place to another, if possible.
+ *
+ * If it is a legal move for the current player, moves the piece, and end the player's turn.
  *
  * If placing the piece is not possible, this returns a positive return_code
  * encoding the problem identified: 
@@ -264,4 +266,25 @@ enum return_code move_piece(board game, int source_line, int source_column, int 
 
 /**@}*/
 
+/**
+ * loads the game saved in filename and returns the loaded game.
+ * Returns NULL if the load fails.
+ * @param filename the filename to load the game from.
+ * @return a new game containing the loaded game.
+ **/
+board load_game(char * filename);
+
+/**
+ * saves the game in the corresponding filename.
+ * @param filename the filename to save the game to, extension .sav is suggested.
+ **/
+void save_game(board game, char * filename);
+
+
+
 #endif /*_BOARD_H_*/
+
+
+
+
+

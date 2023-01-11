@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "input.h"
 #include "board.h"
@@ -36,8 +37,9 @@ enum action_e input_place_move()
 		scanf("%c", &buffer);
 	} while(buffer != '\n');
 	
-	if (choice == 'p') return PLACE;
-	else if (choice == 'm') return MOVE;
+	if (choice == 'p' || choice == 'P') return PLACE;
+	else if (choice == 'm' || choice == 'M') return MOVE;
+	else if (choice == 'q' || choice == 'Q') return EXIT;
 	
 	return ERROR;
 }
@@ -57,15 +59,39 @@ size input_piece_size()
 	else if (choice == '2') return MEDIUM;
 	else if (choice == '3') return LARGE;
 	
+	else if (choice == 'r' || choice == 'R') return CANCEL_SIZE;
+	else if (choice == 'q' || choice == 'Q') return EXIT_SIZE;
+	
 	return NONE;
 }
 
 void input_position (int* p_line, int* p_col)
 {
-	char choice[3];
+	char choice[2];
 	scanf("%c", &choice[0]);
+
+	if (choice[0] == 'r' || choice[0] == 'R')
+	{
+		*p_line = -2;
+		char buffer;
+		do
+		{
+			scanf("%c", &buffer);
+		} while(buffer != '\n');
+		return;
+	}
+	if (choice[0] == 'q' || choice[0] == 'Q')
+	{
+		*p_col = -2;
+		char buffer;
+		do
+		{
+			scanf("%c", &buffer);
+		} while(buffer != '\n');
+		return;
+	}
+
 	scanf("%c", &choice[1]);
-	choice[2] = '\0';
 	
 	char buffer;
 	do
@@ -112,4 +138,36 @@ int input_yes_no()
 		return 0;
 		
 	return -1;
+}
+
+menu_choice input_main_menu()
+{
+	char choice[CHOICE_MAX_LENGTH];
+	fgets(choice, CHOICE_MAX_LENGTH - 1, stdin);
+
+	delete_carriage_return(choice);
+
+	if (strcmp(choice, "help") == 0)
+		return HELP;
+
+	else if (strcmp(choice, "pvp") == 0)
+		return PVP;
+
+	else if (strcmp(choice, "load-pvp") == 0)
+		return LOAD_PVP;
+
+	else if (strcmp(choice, "quit") == 0)
+		return QUIT;
+
+	else
+		return NONE;
+}
+
+void input_filename(char filename[FILENAME_MAX_LENGTH])
+{
+	do
+	{
+		fgets(filename, FILENAME_MAX_LENGTH - 1, stdin);
+    	delete_carriage_return(filename);
+	} while(filename[0] == '\0');
 }

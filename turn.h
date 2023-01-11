@@ -27,9 +27,11 @@ enum possible_e {ANY, PLACE_ONLY, MOVE_ONLY};
  * 
  * @param game the board in use
  * @param player1_name 
- * @param player2_name 
+ * @param player2_name
+ * 
+ * @return returns 1 only if the players want to exit the game, else returns 0
  */
-void turn(board game, char player1_name[], char player2_name[]);
+int turn(board game, char player1_name[], char player2_name[]);
 
 /**
  * @brief displays an message to warn the player he made a mistake
@@ -69,7 +71,8 @@ enum possible_e determine_possible_action(board game, player current_player);
  * @brief tries to place a piece on the board, asking the player for the size and target position
  * 
  * @param game -> the board in use
- * @return int -> returns 1 if the placement was successful, else returns 0
+ * @return int -> returns 1 if the placement was successful, 2 if the player wants to cancel its action,
+ *             -> 3 if the player wants to exit the game, and 0 if the move is invalid
  */
 int place (board game);
 
@@ -78,8 +81,11 @@ int place (board game);
  * @brief tries to move a piece of the board, asking the player for the source and target positions
  * 
  * @param game -> the board in use
- * @return int -> returns 1 if the move was successful, else returns 0
+ * @return int -> returns 1 if the move was successful, 2 if the player wants to cancel its action,
+ *             -> 3 if the player wants to exit the game, and 0 if the move is invalid
  */
 int move (board game);
+
+void exit_game(board game);
 
 #endif //TURN_H

@@ -5,7 +5,7 @@
 #include "board.h"
 #include "input.h"
 
-void turn(board game, char player1_name[], char player2_name[])
+int turn(board game, char player1_name[], char player2_name[])
 {	
 	int not_valid = 1;
 	while(not_valid)
@@ -47,6 +47,9 @@ void turn(board game, char player1_name[], char player2_name[])
 			printf("%s, it's your turn !\n\n", player2_name);
 			reset_output_color();
 		}
+
+		printf("You can restart your action at any time by pressing entering 'r'.\n");
+		printf("Enter 'q' if you want to quit (you'll be asked if you want to save the current game).\n\n");
 		
 		//determines the possible actions for the current player
 		enum possible_e possible_action = determine_possible_action(game,
@@ -65,6 +68,11 @@ void turn(board game, char player1_name[], char player2_name[])
 				error_message("Please enter 'm' or 'p' !");
 				continue;
 			}
+			else if (action == EXIT)
+			{
+				exit_game(game);
+				return 1;
+			}
 		}
 		else if (possible_action == PLACE_ONLY)
 		{
@@ -78,21 +86,48 @@ void turn(board game, char player1_name[], char player2_name[])
 		//lauch the procedure of the right action
 		if (action == PLACE)
 		{
-			if (place(game) == 1)
+			int action_return = place(game);
+			if (action_return == 1)
 				not_valid = 0;
+			else if (action_return == 2)
+			{
+				printf("Action cancelled.\n");
+				printf("Press return to continue...");
+				getchar();
+				continue;
+			}
+			else if (action_return == 3)
+			{
+				exit_game(game);
+				return 1;
+			}
 		}	
 		else if (action == MOVE)
 		{
-			if (move(game) == 1)
+			int action_return = move(game);
+			if (action_return == 1)
 				not_valid = 0;
+			else if (action_return == 2)
+			{
+				printf("Action cancelled.\n");
+				printf("Press return to continue...");
+				getchar();
+				continue;
+			}
+			else if (action_return == 3)
+			{
+				exit_game(game);
+				return 1;
+			}
 		}
 	}
+	return 0;
 }
 
 void error_message (const char message[])
 {
 	printf("%s\n", message);
-	printf("Press Enter to continue...");
+	printf("Press Return to continue...");
 	getchar();
 }
 
@@ -103,7 +138,10 @@ int declare_winner(board* p_game, char player1_name[], char player2_name[])
 	{
 		return 1;
 	}
-	else if (winner == PLAYER_1)
+	clear_screen();
+	print_board(*p_game);
+	printf("\n");
+	if (winner == PLAYER_1)
 	{
 		change_output_color(BLUE);
 		printf("%s is the WINNER !!!\n", player1_name);
@@ -159,14 +197,22 @@ int place(board game)
 		error_message("Please enter a valid digit between 1 and 3 !");
 		return 0;
 	}
+	else if (piece_size == CANCEL_SIZE)
+		return 2;
+	else if (piece_size == EXIT_SIZE)
+		return 3;
 	
-	int dest_line, dest_col;
+	int dest_line = -1, dest_col = -1;
 	
 	printf("Please enter the destination place as 'XY',");
 	printf("where X is the line and Y is the column :\n>");
 	input_position(&dest_line, &dest_col);
 	
-	if (dest_line == -1 || dest_col == -1)
+	if (dest_line == -2)
+		return 2;
+	else if (dest_col == -2)
+		return 3;
+	else if (dest_line == -1 || dest_col == -1)
 	{
 		error_message("Please enter a valid letter followed by a valid digit !");
 		return 0;
@@ -197,23 +243,31 @@ int place(board game)
 
 int move (board game)
 {
-	int src_line, src_col;
+	int src_line = -1, src_col = -1;
 	printf("Please enter the position of the piece you want to move");
 	printf("as 'XY', where X is the line and Y is the column :\n>");
 	input_position(&src_line, &src_col);
 	
+	if (src_line == -2)
+		return 2;
+	else if (src_col == -2)
+		return 3;
 	if (src_line == -1 || src_col == -1)
 	{
 		error_message("Please enter a valid letter followed by a valid digit !");
 		return 0;
 	}
 	
-	int dest_line, dest_col;
+	int dest_line = -1, dest_col = -1;
 	
 	printf("Please enter the destination place as 'XY',");
 	printf("where X is the line and Y is the column :\n>");
 	input_position(&dest_line, &dest_col);
 	
+	if (dest_line == -2)
+		return 2;
+	else if (dest_col == -2)
+		return 3;
 	if (dest_line == -1 || dest_col == -1)
 	{
 		error_message("Please enter a valid letter followed by a valid digit !");
@@ -241,4 +295,28 @@ int move (board game)
 			error_message("unkown error!");
 	}
 	return 0;
+}
+
+void exit_game(board game)
+{
+	printf("Exiting game...\n");
+	printf("Do you want to save the current game ? (y/n)\n");
+	
+	int input = -1;
+
+	while(input == -1)
+	{
+		printf(">");
+		input = input_yes_no();
+	} 
+	if (input == 1)
+	{
+		printf("Please enter the name of the file you want to write :\n");
+		printf(">");
+		char filename[FILENAME_MAX_LENGTH];
+		input_filename(filename);
+		save_game(game, filename);
+		printf("Game saved, press return to go back to the main menu...");
+		getchar();
+	}
 }
