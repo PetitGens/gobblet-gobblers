@@ -101,3 +101,42 @@ void insert_piece(char piece[], board game, int line, int col)
 				piece[1] = '\0';	
 		}
 }
+
+void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings)
+{
+	int width = 10 + 4 + NAME_MAX_LENGTH + 11;
+	for (int i = 0; i < width; i++)
+		printf("-");
+	printf("\n");
+
+	printf("|  RANG  |  NAME");
+	for (int i = 0; i < NAME_MAX_LENGTH - 3; i++)
+		printf(" ");
+	printf("|  SCORE  |\n");
+
+	printf("|--------|---------------------------------|---------|\n");
+
+	for (int i = 0; i < nb_ratings; i++)
+	{
+		printf("|  %4d  ", i + 1);
+
+		char name_copy [NAME_MAX_LENGTH];
+		strcpy(name_copy, ratings[i].player_name);
+		format_name_for_leaderboard(name_copy);
+		printf("|  %s  ", name_copy);
+		printf("|  %5d  |\n", ratings[i].score);
+	}
+
+	for (int i = 0; i < width; i++)
+		printf("-");
+	printf("\n");
+}
+
+void format_name_for_leaderboard(char name[NAME_MAX_LENGTH])
+{
+	for (int i = strlen(name); i < NAME_MAX_LENGTH - 1; i++)
+	{
+		name[i] = ' ';
+	}
+	name[NAME_MAX_LENGTH - 1] = '\0';
+}

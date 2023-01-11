@@ -1,5 +1,5 @@
-gobblet : main.o display.o turn.o input.o gameloop.o menu.o
-	gcc -Wall -o gobblet main.o board.o display.o turn.o input.o gameloop.o menu.o
+gobblet : main.o display.o turn.o input.o gameloop.o menu.o rating.o
+	gcc -Wall -o gobblet main.o board.o display.o turn.o input.o gameloop.o menu.o rating.o
 
 main.o : main.c
 	gcc -Wall -c main.c
@@ -21,3 +21,6 @@ gameloop.o : gameloop.c
 
 menu.o : menu.c
 	gcc -Wall -c menu.c
+
+rating.o : rating.c
+	gcc -Wall -c rating.c

@@ -131,28 +131,39 @@ void error_message (const char message[])
 	getchar();
 }
 
-int declare_winner(board* p_game, char player1_name[], char player2_name[])
+int declare_winner(board* p_game, rating ratings[2])
 {
 	player winner = get_winner(*p_game);
 	if (winner == NO_PLAYER)
 	{
 		return 1;
 	}
+	if (ratings[0].score == 0 || ratings[1].score == 0)
+	{
+		load_ratings(ratings);
+	}
+
+
 	clear_screen();
 	print_board(*p_game);
 	printf("\n");
 	if (winner == PLAYER_1)
 	{
+		calculate_ratings(&ratings[0], &ratings[1]);
 		change_output_color(BLUE);
-		printf("%s is the WINNER !!!\n", player1_name);
+		printf("%s is the WINNER !!!\n", ratings[0].player_name);
 		reset_output_color();
 	}
 	else if (winner == PLAYER_2)
 	{
+		calculate_ratings(&ratings[1], &ratings[0]);
 		change_output_color(YELLOW);
-		printf("%s is the WINNER !!!\n", player2_name);
+		printf("%s is the WINNER !!!\n", ratings[1].player_name);
 		reset_output_color();
 	}
+	save_rating(&ratings[0]);
+	save_rating(&ratings[1]);
+
 	int play_again = -1;
 	while (play_again == -1)
 	{

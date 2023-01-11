@@ -2,6 +2,7 @@
 #define DISPLAY_H
 
 #include "board.h"
+#include "rating.h"
 
 /**
  * \file display.h
@@ -62,5 +63,9 @@ void print_board(board game);
  * @param col  }
  */
 void insert_piece(char piece[], board game, int line, int col);
+
+void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings);
+
+void format_name_for_leaderboard(char name[NAME_MAX_LENGTH]);
 
 #endif //DISPLAY_H

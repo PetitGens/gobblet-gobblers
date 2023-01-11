@@ -52,7 +52,7 @@ board new_game(){
 		new_board->squares[i] = current_square;
 	}
 
-	new_board->current_player = PLAYER_1;
+	new_board->current_player = rand() % NB_PLAYERS + 1;
 
 	return new_board;
 }
@@ -99,6 +99,9 @@ player next_player(board game)
 
 player get_place_holder(board game, int line, int column)
 {
+    if (line < 0 || line >= DIMENSIONS) return 0;
+	if (column < 0 || column >= DIMENSIONS) return 0;
+    
 	int square_index = line * DIMENSIONS + column;
 
 	int square_piece_number = game->squares[square_index].piece_number;
@@ -111,6 +114,9 @@ player get_place_holder(board game, int line, int column)
 
 size get_piece_size(board game, int line, int column)
 {
+    if (line < 0 || line >= DIMENSIONS) return 0;
+	if (column < 0 || column >= DIMENSIONS) return 0;
+    
 	int square_index = line * DIMENSIONS + column;
 
 	int square_piece_number = game->squares[square_index].piece_number;
@@ -241,6 +247,11 @@ player get_winner(board game)
 
 int get_nb_piece_in_house(board game, player checked_player, size piece_size)
 {
+    if (checked_player > NB_PLAYERS) return 0;
+	if (piece_size > NB_SIZE) return 0;
+	if (checked_player <= 0) return 0;
+	if (piece_size <= 0) return 0;
+    
 	return game->houses[checked_player - 1][piece_size - 1];
 }
 
@@ -320,7 +331,7 @@ board load_game(char * filename)
 	FILE * stream = fopen(filename, "r");
 	if (stream == NULL)
 	{
-		printf("erreur d'ouverture du fichier\n");
+		//printf("erreur d'ouverture du fichier\n");
 		return NULL;
 	}
 
@@ -332,7 +343,7 @@ board load_game(char * filename)
 	{
 		if (fscanf(stream, "%c", &input) == EOF)
 		{
-			printf("fin prématurée du fichier\n");
+			//printf("fin prématurée du fichier\n");
 			return NULL;
 		}
 
@@ -340,7 +351,7 @@ board load_game(char * filename)
 		{
 			if (input < '0' || input > '9')
 			{
-				printf("caractère inattendu rencontré : %c\n", input);
+				//printf("caractère inattendu rencontré : %c\n", input);
 				return NULL;
 			}
 
@@ -358,7 +369,7 @@ board load_game(char * filename)
 			{
 				if (fscanf(stream, "%c", &input) == EOF)
 				{
-					printf("fin prématurée du fichier\n");
+					//printf("fin prématurée du fichier\n");
 					return NULL;
 				}
 
@@ -366,7 +377,7 @@ board load_game(char * filename)
 				{
 					if (input < '0' || input > '9')
 					{
-						printf("caractère inattendu rencontré : %c\n", input);
+						//printf("caractère inattendu rencontré : %c\n", input);
 						return NULL;
 					}
 
@@ -397,7 +408,7 @@ board load_game(char * filename)
 				{
 					if (input < '0' || input > '9')
 					{
-						printf("caractère inattendu rencontré : %c\n", input);
+						//printf("caractère inattendu rencontré : %c\n", input);
 						return NULL;
 					}
 
@@ -419,7 +430,7 @@ board load_game(char * filename)
 					{
 						if (input < '0' || input > '9')
 						{
-							printf("caractère inattendu rencontré : %c\n", input);
+							//printf("caractère inattendu rencontré : %c\n", input);
 							return NULL;
 						}
 

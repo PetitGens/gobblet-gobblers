@@ -159,6 +159,9 @@ menu_choice input_main_menu()
 	else if (strcmp(choice, "quit") == 0)
 		return QUIT;
 
+	else if (strcmp(choice, "leaderboard") == 0)
+		return LEADERBOARD;
+
 	else
 		return NONE;
 }

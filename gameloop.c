@@ -1,10 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "board.h"
 #include "gameloop.h"
 #include "display.h"
 #include "turn.h"
 #include "input.h"
+#include "rating.h"
 
 void pvp_loop(board game)
 {
@@ -16,15 +19,19 @@ void pvp_loop(board game)
     input_players_names(player1_name, player2_name);
     delete_carriage_return(player1_name);
     delete_carriage_return(player2_name);
+
+    rating ratings[2];
+    strcpy(ratings[0].player_name, player1_name);
+    strcpy(ratings[1].player_name, player2_name);
     
     int play_again = 1;
-    
+
     while(play_again)
     {
         if (turn(game, player1_name, player2_name) == 1)
             play_again = 0;
         else
-            play_again = declare_winner(&game, player1_name, player2_name);
+            play_again = declare_winner(&game, ratings);
     }
     
     destroy_game(game);

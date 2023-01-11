@@ -2,6 +2,7 @@
 #define TURN_H
 
 #include "board.h"
+#include "rating.h"
 
 /**
  * @file turn.h
@@ -55,7 +56,7 @@ void error_message (const char message[]);
  * @param player2_name 
  * @return int -> returns 1 if no one won or if the players want to play again ; else returns 0
  */
-int declare_winner(board* p_game, char player1_name[], char player2_name[]);
+int declare_winner(board* p_game, rating ratings[2]);
 
 /**
  * @brief check if the current player can place, move or do any of the two actions
