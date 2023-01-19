@@ -149,14 +149,14 @@ int declare_winner(board* p_game, rating ratings[2])
 	printf("\n");
 	if (winner == PLAYER_1)
 	{
-		calculate_ratings(&ratings[0], &ratings[1]);
+		calculate_elo_ratings(&ratings[0], &ratings[1]);
 		change_output_color(BLUE);
 		printf("%s is the WINNER !!!\n", ratings[0].player_name);
 		reset_output_color();
 	}
 	else if (winner == PLAYER_2)
 	{
-		calculate_ratings(&ratings[1], &ratings[0]);
+		calculate_elo_ratings(&ratings[1], &ratings[0]);
 		change_output_color(YELLOW);
 		printf("%s is the WINNER !!!\n", ratings[1].player_name);
 		reset_output_color();

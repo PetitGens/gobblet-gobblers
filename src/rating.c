@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "../headers/rating.h"
 #include "../headers/board.h"
@@ -60,7 +61,7 @@ void load_ratings(rating players_ratings[2])
         else
         {
             players_ratings[0].exists_in_file = false;
-            players_ratings[0].score = 1000;
+            players_ratings[0].score = DEFAULT_SCORE;
             save_rating(&players_ratings[0]);
         }
 
@@ -69,7 +70,7 @@ void load_ratings(rating players_ratings[2])
         else
         {
             players_ratings[1].exists_in_file = false;
-            players_ratings[1].score = 1000;
+            players_ratings[1].score = DEFAULT_SCORE;
             save_rating(&players_ratings[1]);
         }
     }
@@ -80,7 +81,7 @@ void load_ratings(rating players_ratings[2])
         else
         {
             players_ratings[0].exists_in_file = false;
-            players_ratings[0].score = 1000;
+            players_ratings[0].score = DEFAULT_SCORE;
             save_rating(&players_ratings[0]);
         }
 
@@ -89,7 +90,7 @@ void load_ratings(rating players_ratings[2])
         else
         {
             players_ratings[1].exists_in_file = false;
-            players_ratings[1].score = 1000;
+            players_ratings[1].score = DEFAULT_SCORE;
             save_rating(&players_ratings[1]);
         }
     }
@@ -125,12 +126,28 @@ void save_rating(rating* p_rat)
     }
 }
 
-void calculate_ratings(rating* p_winner, rating* p_loser)
+void calculate_basic_ratings(rating* p_winner, rating* p_loser)
 {
     p_winner->score += 10;
     p_loser->score -= 8;
-    if (p_loser->score < 1000)
-        p_loser->score = 1000;
+    if (p_loser->score < MINIMUM_SCORE)
+        p_loser->score = MINIMUM_SCORE;
+}
+
+void calculate_elo_ratings(rating* p_winner, rating* p_loser)
+{
+    double expected_winner_score = 1 / ( 1 + pow(10, (p_loser->score - p_winner->score) / 400));
+    double expected_loser_score = 1 / ( 1 + pow(10, (p_winner->score - p_loser->score) / 400));
+
+    int winner_change = K_FACTOR * (1 - expected_winner_score);
+    int loser_change = K_FACTOR * expected_loser_score;
+
+    p_winner->score += winner_change;
+    p_loser->score -= loser_change;
+
+    if (p_loser->score < MINIMUM_SCORE)
+        p_loser->score = MINIMUM_SCORE;
+
 }
 
 int load_all_ratings(rating ratings[MAX_NB_RATINGS])

@@ -1,5 +1,5 @@
 gobblet : bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o
-	gcc -Wall -o gobblet bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o
+	gcc -Wall -o gobblet bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o -lm
 
 bin/main.o : src/main.c
 	gcc -Wall -c src/main.c -o bin/main.o
