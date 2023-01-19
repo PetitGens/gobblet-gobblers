@@ -11,6 +11,6 @@ int main()
 {
 	srand(time(NULL));
 
-	//main_menu();
+	main_menu();
 	return 0;
 }

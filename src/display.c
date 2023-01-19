@@ -2,6 +2,7 @@
 
 #include "../headers/display.h"
 #include "../headers/board.h"
+#include "../headers/input.h"
 #include <string.h>
 
 void clear_screen()
@@ -139,4 +140,9 @@ void format_name_for_leaderboard(char name[NAME_MAX_LENGTH])
 		name[i] = ' ';
 	}
 	name[NAME_MAX_LENGTH - 1] = '\0';
+}
+
+void bot_turn_message(char message[], enum action_e* p_action, int input1[2], int input2[2])
+{
+	;
 }

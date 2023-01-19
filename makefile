@@ -1,5 +1,5 @@
-gobblet : bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o
-	gcc -Wall -o gobblet bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o -lm
+gobblet : bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o bin/bot.o
+	gcc -Wall -o gobblet bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o bin/bot.o -lm
 
 bin/main.o : src/main.c
 	gcc -Wall -c src/main.c -o bin/main.o
@@ -24,3 +24,6 @@ bin/menu.o : src/menu.c
 
 bin/rating.o : src/rating.c
 	gcc -Wall -c src/rating.c -o bin/rating.o
+
+bin/bot.o : src/bot.c
+	gcc -Wall -c src/bot.c -o bin/bot.o

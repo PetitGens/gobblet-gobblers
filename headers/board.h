@@ -218,6 +218,9 @@ int get_nb_piece_in_house(board game, player checked_player, size piece_size);
  * \name Playing functionalities
  */
 
+enum return_code is_placement_possible(board game, size piece_size, int line, int column);
+enum return_code is_movement_possible(board game, int source_line, int source_column, int target_line, int target_column);
+
 /**
  * @brief Adds a piece on the board if possible.
  *

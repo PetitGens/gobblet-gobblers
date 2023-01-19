@@ -28,7 +28,7 @@ void pvp_loop(board game)
 
     while(play_again)
     {
-        if (turn(game, player1_name, player2_name) == 1)
+        if (human_turn(game, player1_name, player2_name) == 1)
             play_again = 0;
         else
             play_again = declare_winner(&game, ratings);

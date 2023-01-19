@@ -32,7 +32,7 @@ enum possible_e {ANY, PLACE_ONLY, MOVE_ONLY};
  * 
  * @return returns 1 only if the players want to exit the game, else returns 0
  */
-int turn(board game, char player1_name[], char player2_name[]);
+int human_turn(board game, char player1_name[], char player2_name[]);
 
 /**
  * @brief displays an message to warn the player he made a mistake

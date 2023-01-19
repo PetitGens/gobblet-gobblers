@@ -260,7 +260,7 @@ void switch_player(board game)
 	game->current_player = game->current_player % NB_PLAYERS + 1;
 }
 
-enum return_code place_piece(board game, size piece_size, int line, int column)
+enum return_code is_placement_possible(board game, size piece_size, int line, int column)
 {
 	if (
 		line < 0
@@ -278,6 +278,16 @@ enum return_code place_piece(board game, size piece_size, int line, int column)
 	if ( piece_size <= get_piece_size(game, line, column) )
 		return TARGET;
 
+	return OK;
+}
+
+enum return_code place_piece(board game, size piece_size, int line, int column)
+{
+	enum return_code return_code = is_placement_possible(game, piece_size, line, column);
+
+	if (return_code != OK)
+		return return_code;
+
 	int square_nb_pieces = game->squares[line * DIMENSIONS + column].piece_number;
 	piece piece_to_place = {piece_size, next_player(game)};
 
@@ -291,7 +301,7 @@ enum return_code place_piece(board game, size piece_size, int line, int column)
 	return OK;
 }
 
-enum return_code move_piece(board game, int source_line, int source_column, int target_line, int target_column)
+enum return_code is_movement_possible(board game, int source_line, int source_column, int target_line, int target_column)
 {
 	if (
 		source_line < 0
@@ -312,6 +322,16 @@ enum return_code move_piece(board game, int source_line, int source_column, int 
 	
 	if ( get_piece_size(game, source_line, source_column) <= get_piece_size(game, target_line, target_column) )
 		return TARGET;
+
+	return OK;
+}
+
+enum return_code move_piece(board game, int source_line, int source_column, int target_line, int target_column)
+{
+	enum return_code return_code = is_movement_possible(game, source_line, source_column, target_line, target_column);
+
+	if (return_code != OK)
+		return return_code;
 
 	int target_nb_pieces = game->squares[target_line * DIMENSIONS + target_column].piece_number;
 	piece piece_to_place = {get_piece_size(game, source_line, source_column), next_player(game)};

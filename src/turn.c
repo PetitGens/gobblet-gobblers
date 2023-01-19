@@ -4,8 +4,9 @@
 #include "../headers/display.h"
 #include "../headers/board.h"
 #include "../headers/input.h"
+#include "../headers/bot.h"
 
-int turn(board game, char player1_name[], char player2_name[])
+int human_turn(board game, char player1_name[], char player2_name[])
 {	
 	int not_valid = 1;
 	while(not_valid)
@@ -122,6 +123,85 @@ int turn(board game, char player1_name[], char player2_name[])
 		}
 	}
 	return 0;
+}
+
+void bot_turn(board game, char player1_name[], char player2_name[], bot_difficulty_e bot_dif)
+{
+	clear_screen();
+	print_board(game);
+	printf("\n");
+	
+	//prints player1's remaining pieces
+	change_output_color(BLUE);
+	printf("%s's remaining piece(s) :\n", player1_name);
+	printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_1, SMALL),
+	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	
+	//prints player2's remaining pieces
+	change_output_color(YELLOW);
+	printf("%s's remaining piece(s) :\n", player2_name);
+	printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_2, SMALL),
+	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	
+	reset_output_color();
+	
+	//prints next player
+	player current_player = next_player(game);
+	
+	if (current_player == PLAYER_1)
+	{
+		change_output_color(BLUE);
+		printf("It's %s's turn.\n%s is thinking...\n", player1_name, player1_name);
+		reset_output_color();
+	}
+	else
+	{
+		change_output_color(YELLOW);
+		printf("It's %s's turn.\n%s is thinking...\n", player2_name, player2_name);
+		reset_output_color();
+	}
+
+	char turn_message[32];
+	bot_play(game, current_player, bot_dif, turn_message);
+
+	clear_screen();
+	print_board(game);
+	printf("\n");
+	
+	//prints player1's remaining pieces
+	change_output_color(BLUE);
+	printf("%s's remaining piece(s) :\n", player1_name);
+	printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_1, SMALL),
+	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	
+	//prints player2's remaining pieces
+	change_output_color(YELLOW);
+	printf("%s's remaining piece(s) :\n", player2_name);
+	printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_2, SMALL),
+	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	
+	reset_output_color();
+	
+	if (current_player == PLAYER_1)
+	{
+		change_output_color(BLUE);
+		printf("It's %s's turn.\n%s is thinking...\n", player1_name, player1_name);
+		reset_output_color();
+	}
+	else
+	{
+		change_output_color(YELLOW);
+		printf("It's %s's turn.\n%s is thinking...\n", player2_name, player2_name);
+		reset_output_color();
+	}
 }
 
 void error_message (const char message[])
