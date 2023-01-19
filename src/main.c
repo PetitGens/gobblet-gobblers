@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "board.h"
-#include "gameloop.h"
-#include "menu.h"
+#include "../headers/board.h"
+#include "../headers/gameloop.h"
+#include "../headers/menu.h"
 
 int main()
 {

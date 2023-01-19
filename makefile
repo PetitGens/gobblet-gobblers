@@ -1,26 +1,26 @@
-gobblet : main.o display.o turn.o input.o gameloop.o menu.o rating.o
-	gcc -Wall -o gobblet main.o board.o display.o turn.o input.o gameloop.o menu.o rating.o
+gobblet : bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o
+	gcc -Wall -o gobblet bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o
 
-main.o : main.c
-	gcc -Wall -c main.c
+bin/main.o : src/main.c
+	gcc -Wall -c src/main.c -o bin/main.o
 
-board.o : board.c
-	gcc -Wall -c board.c
+bin/board.o : src/board.c
+	gcc -Wall -c src/board.c -o bin/board.o
 
-display.o : display.c
-	gcc -Wall -c display.c
+bin/display.o : src/display.c
+	gcc -Wall -c src/display.c -o bin/display.o
 
-turn.o : turn.c
-	gcc -Wall -c turn.c
+bin/turn.o : src/turn.c
+	gcc -Wall -c src/turn.c -o bin/turn.o
 
-input.o : input.c
-	gcc -Wall -c input.c
+bin/input.o : src/input.c
+	gcc -Wall -c src/input.c -o bin/input.o
 
-gameloop.o : gameloop.c
-	gcc -Wall -c gameloop.c
+bin/gameloop.o : src/gameloop.c
+	gcc -Wall -c src/gameloop.c -o bin/gameloop.o
 
-menu.o : menu.c
-	gcc -Wall -c menu.c
+bin/menu.o : src/menu.c
+	gcc -Wall -c src/menu.c -o bin/menu.o
 
-rating.o : rating.c
-	gcc -Wall -c rating.c
+bin/rating.o : src/rating.c
+	gcc -Wall -c src/rating.c -o bin/rating.o

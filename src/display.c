@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#include "display.h"
-#include "board.h"
-#include "string.h"
+#include "../headers/display.h"
+#include "../headers/board.h"
+#include <string.h>
 
 void clear_screen()
 {

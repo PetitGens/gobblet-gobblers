@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "board.h"
+#include "../headers/board.h"
 
 /**
  * \file board.c

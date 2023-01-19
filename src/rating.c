@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "rating.h"
-#include "board.h"
+#include "../headers/rating.h"
+#include "../headers/board.h"
 
 void load_ratings(rating players_ratings[2])
 {

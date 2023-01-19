@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "board.h"
-#include "gameloop.h"
-#include "display.h"
-#include "turn.h"
-#include "input.h"
-#include "rating.h"
+#include "../headers/board.h"
+#include "../headers/gameloop.h"
+#include "../headers/display.h"
+#include "../headers/turn.h"
+#include "../headers/input.h"
+#include "../headers/rating.h"
 
 void pvp_loop(board game)
 {

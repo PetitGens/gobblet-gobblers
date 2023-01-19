@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#include "board.h"
-#include "menu.h"
-#include "input.h"
-#include "display.h"
-#include "gameloop.h"
+#include "../headers/board.h"
+#include "../headers/menu.h"
+#include "../headers/input.h"
+#include "../headers/display.h"
+#include "../headers/gameloop.h"
 
 void main_menu()
 {

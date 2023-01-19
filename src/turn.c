@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "turn.h"
-#include "display.h"
-#include "board.h"
-#include "input.h"
+#include "../headers/turn.h"
+#include "../headers/display.h"
+#include "../headers/board.h"
+#include "../headers/input.h"
 
 int turn(board game, char player1_name[], char player2_name[])
 {	

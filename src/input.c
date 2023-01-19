@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "input.h"
-#include "board.h"
+#include "../headers/input.h"
+#include "../headers/board.h"
 
 void input_players_names(char name1[], char name2[])
 {
