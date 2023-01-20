@@ -105,12 +105,12 @@ void insert_piece(char piece[], board game, int line, int col)
 
 void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings)
 {
-	int width = 10 + 4 + NAME_MAX_LENGTH + 11;
+	int width = 10 + 4 + NAME_MAX_LENGTH + 11; // Total width of the leaderboard as it is displayed
 	for (int i = 0; i < width; i++)
 		printf("-");
 	printf("\n");
 
-	printf("|  RANG  |  NAME");
+	printf("|  RANK  |  NAME");
 	for (int i = 0; i < NAME_MAX_LENGTH - 3; i++)
 		printf(" ");
 	printf("|  SCORE  |\n");
