@@ -4,6 +4,7 @@
 #include "board.h"
 #include "menu.h"
 #include "bot.h"
+#include "action.h"
 
 #define NAME_MAX_LENGTH 30
 #define CHOICE_MAX_LENGTH 30
@@ -35,13 +36,6 @@ void input_single_player_name(char name[]);
  * @param string
 */
 void delete_carriage_return (char string[]);
-
-/**
- * @brief action chosen by the player
- * 
- * ERROR stands for an invalid input from the player
-*/
-enum action_e {ERROR, PLACE, MOVE, EXIT};
 
 /**
  * @brief asks to the player the action he wants to do

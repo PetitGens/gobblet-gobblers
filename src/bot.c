@@ -4,6 +4,7 @@
 #include "../headers/bot.h"
 #include "../headers/turn.h"
 #include "../headers/display.h"
+#include "../headers/input.h"
 
 void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[])
 {
@@ -25,14 +26,14 @@ void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char 
         if (place_piece(game, input1[0], input2[0], input2[1]) != OK)
             printf("error, placement failure\n");
     }
-    if (action == MOVE)
+    else if (action == MOVE)
     {
         if (move_piece(game, input1[0], input1[1], input2[0], input2[1]))
             printf("error, movement failure\n");
     }
     else
     {
-        printf("error, invalid bot action\n");
+        printf("error, invalid bot action, action = %d\n", action);
         turn_message[0] = '\0';
         return;
     }

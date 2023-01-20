@@ -1,8 +1,9 @@
 #ifndef __BOT_H__
 #define __BOT_H__
 
-#include "../headers/board.h"
-#include "../headers/input.h"
+#include "board.h"
+#include "action.h"
+
 
 typedef enum {EASY, MEDIUM_DIFF, HARD} bot_difficulty_e; 
 

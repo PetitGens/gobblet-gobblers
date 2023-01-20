@@ -144,9 +144,10 @@ void format_name_for_leaderboard(char name[NAME_MAX_LENGTH])
 
 void bot_turn_message(char message[], char bot_name[],enum action_e action, int input1[2], int input2[2])
 {
-	char dest[2];
-	dest[0] = 'A' + input2[2]; 
+	char dest[3];
+	dest[0] = 'A' + input2[0]; 
 	dest[1] = '1' + input2[1];
+	dest[2] = '\0';
 
 
 	if (action == PLACE)
@@ -155,29 +156,30 @@ void bot_turn_message(char message[], char bot_name[],enum action_e action, int 
 		switch (input1[0])
 		{
 			case SMALL:
-				strcpy("small", piece_size);
+				strcpy(piece_size, "small");
 				break;
 			case MEDIUM:
-				strcpy("small", piece_size);
+				strcpy(piece_size, "medium");
 				break;
 			case LARGE:
-				strcpy("small", piece_size);
+				strcpy(piece_size, "large");
 				break;
 			default:
-				strcpy("[invalid size]", piece_size);
+				strcpy(piece_size, "[invalid size]");
 		}
 
 		sprintf(message, "%s placed a %s piece at %s.", bot_name, piece_size, dest);
 	}
 	else if (action == MOVE)
 	{
-		char src[2];
-		src[0] = 'A' + input1[2]; 
+		char src[3];
+		src[0] = 'A' + input1[0]; 
 		src[1] = '1' + input1[1];
+		src[2] = '\0';
 
 		sprintf(message, "%s moved a piece from %s to %s.", bot_name, src, dest);
 	}
 	else{
-		strcpy("error, invalid action\n", message);
+		strcpy(message, "error, invalid action\n");
 	}
 }

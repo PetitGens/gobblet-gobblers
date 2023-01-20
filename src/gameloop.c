@@ -53,6 +53,8 @@ void pvb_loop(board game, bot_difficulty_e bot_dif)
     input_single_player_name(player1_name);
     delete_carriage_return(player1_name);
 
+    strcpy(player2_name, "Bot");
+
     /*rating ratings[2];
     strcpy(ratings[0].player_name, player1_name);
     strcpy(ratings[1].player_name, player2_name);*/

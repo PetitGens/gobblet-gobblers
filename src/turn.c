@@ -159,7 +159,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 		printf("It's %s's turn.\n%s is thinking...\n", player1_name, player1_name);
 		reset_output_color();
 		
-		bot_play(game, current_player, bot_dif, turn_message, player1_name);
+		bot_play(game, current_player, bot_dif, player1_name, turn_message);
 	}
 	else
 	{
@@ -167,7 +167,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 		printf("It's %s's turn.\n%s is thinking...\n", player2_name, player2_name);
 		reset_output_color();
 
-		bot_play(game, current_player, bot_dif, turn_message, player2_name);
+		bot_play(game, current_player, bot_dif, player2_name, turn_message);
 	}
 
 	
@@ -197,17 +197,19 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	if (current_player == PLAYER_1)
 	{
 		change_output_color(BLUE);
-		printf("It's %s's turn.\n%s is thinking...\n", player1_name, player1_name);
+		printf("It's %s's turn.\n%s is thinking...\n\n", player1_name, player1_name);
 		reset_output_color();
 	}
 	else
 	{
 		change_output_color(YELLOW);
-		printf("It's %s's turn.\n%s is thinking...\n", player2_name, player2_name);
+		printf("It's %s's turn.\n%s is thinking...\n\n", player2_name, player2_name);
 		reset_output_color();
 	}
 
-	printf("%s\n", turn_message);	
+	printf("%s\n", turn_message);
+	printf("Press enter to continue...");
+	getchar();
 }
 
 void error_message (const char message[])
