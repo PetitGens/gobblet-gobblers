@@ -6,7 +6,7 @@
 
 typedef enum {EASY, MEDIUM_DIFF, HARD} bot_difficulty_e; 
 
-void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char turn_message[]);
+void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[]);
 
 void bot_easy(board game, player bot_player_num,  enum action_e* p_action, int input1[2], int input2[2]);
 

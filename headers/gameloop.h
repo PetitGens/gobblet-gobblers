@@ -2,6 +2,7 @@
 #define __GAMELOOP_H__
 
 #include "board.h"
+#include "bot.h"
 
 /**
  * \file gameloop.h
@@ -17,6 +18,10 @@
 void pvp_loop(board game);
 
 void pvp_start();
+
+void pvb_loop(board game, bot_difficulty_e bot_dif);
+
+void pvb_start(bot_difficulty_e bot_dif);
 
 void pvp_load();
 

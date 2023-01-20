@@ -4,7 +4,6 @@
 #include "../headers/display.h"
 #include "../headers/board.h"
 #include "../headers/input.h"
-#include "../headers/bot.h"
 
 int human_turn(board game, char player1_name[], char player2_name[])
 {	
@@ -151,22 +150,27 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	
 	//prints next player
 	player current_player = next_player(game);
+
+	char turn_message[64];
 	
 	if (current_player == PLAYER_1)
 	{
 		change_output_color(BLUE);
 		printf("It's %s's turn.\n%s is thinking...\n", player1_name, player1_name);
 		reset_output_color();
+		
+		bot_play(game, current_player, bot_dif, turn_message, player1_name);
 	}
 	else
 	{
 		change_output_color(YELLOW);
 		printf("It's %s's turn.\n%s is thinking...\n", player2_name, player2_name);
 		reset_output_color();
+
+		bot_play(game, current_player, bot_dif, turn_message, player2_name);
 	}
 
-	char turn_message[32];
-	bot_play(game, current_player, bot_dif, turn_message);
+	
 
 	clear_screen();
 	print_board(game);
@@ -202,6 +206,8 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 		printf("It's %s's turn.\n%s is thinking...\n", player2_name, player2_name);
 		reset_output_color();
 	}
+
+	printf("%s\n", turn_message);	
 }
 
 void error_message (const char message[])
@@ -211,7 +217,7 @@ void error_message (const char message[])
 	getchar();
 }
 
-int declare_winner(board* p_game, rating ratings[2])
+int declare_winner_rating(board* p_game, rating ratings[2])
 {
 	player winner = get_winner(*p_game);
 	if (winner == NO_PLAYER)
@@ -243,6 +249,42 @@ int declare_winner(board* p_game, rating ratings[2])
 	}
 	save_rating(&ratings[0]);
 	save_rating(&ratings[1]);
+
+	int play_again = -1;
+	while (play_again == -1)
+	{
+		printf("Do you want to play again ? ('y' or 'n')\n>");
+		play_again = input_yes_no();
+	}
+	
+	*p_game = new_game();
+	return play_again;
+}
+
+int declare_winner_no_rating(board* p_game, char player1_name[], char player2_name[])
+{
+	player winner = get_winner(*p_game);
+	if (winner == NO_PLAYER)
+	{
+		return 1;
+	}
+
+
+	clear_screen();
+	print_board(*p_game);
+	printf("\n");
+	if (winner == PLAYER_1)
+	{
+		change_output_color(BLUE);
+		printf("%s is the WINNER !!!\n", player1_name);
+		reset_output_color();
+	}
+	else if (winner == PLAYER_2)
+	{
+		change_output_color(YELLOW);
+		printf("%s is the WINNER !!!\n", player2_name);
+		reset_output_color();
+	}
 
 	int play_again = -1;
 	while (play_again == -1)

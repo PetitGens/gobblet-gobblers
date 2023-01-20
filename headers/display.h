@@ -68,4 +68,6 @@ void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings);
 
 void format_name_for_leaderboard(char name[NAME_MAX_LENGTH]);
 
+void bot_turn_message(char message[], char bot_name[],enum action_e action, int input1[2], int input2[2]);
+
 #endif //DISPLAY_H

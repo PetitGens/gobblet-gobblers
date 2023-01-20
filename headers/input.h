@@ -3,6 +3,7 @@
 
 #include "board.h"
 #include "menu.h"
+#include "bot.h"
 
 #define NAME_MAX_LENGTH 30
 #define CHOICE_MAX_LENGTH 30
@@ -24,6 +25,7 @@
  */
 void input_players_names(char name1[], char name2[]);
 
+void input_single_player_name(char name[]);
 
 /**
  * @brief delete the first carriage in the end of a char string
@@ -80,5 +82,7 @@ int input_yes_no();
 menu_choice input_main_menu();
 
 void input_filename(char filename[FILENAME_MAX_LENGTH]);
+
+bot_difficulty_e input_bot_difficulty();
 
 #endif //INPUT_H

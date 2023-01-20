@@ -3,8 +3,9 @@
 
 #include "../headers/bot.h"
 #include "../headers/turn.h"
+#include "../headers/display.h"
 
-void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char turn_message[])
+void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[])
 {
     enum action_e action;
     int input1[2];
@@ -32,7 +33,11 @@ void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char 
     else
     {
         printf("error, invalid bot action\n");
+        turn_message[0] = '\0';
+        return;
     }
+    
+    bot_turn_message(turn_message, bot_name, action, input1, input2);
 }
 
 void bot_easy(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])

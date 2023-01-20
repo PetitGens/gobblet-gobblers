@@ -5,6 +5,7 @@
 #include "../headers/input.h"
 #include "../headers/display.h"
 #include "../headers/gameloop.h"
+#include "../headers/bot.h"
 
 void main_menu()
 {
@@ -42,6 +43,12 @@ void main_menu()
                 pvp_load();
                 display_intro = true;
                 break;
+            case PVB:
+                menu_start_pvb();
+                display_intro = true;
+                break;
+            case LOAD_PVB:
+                break; //TODO
             case QUIT:
                 printf("exiting game program.\n");
                 running = false;
@@ -63,7 +70,8 @@ void main_help()
     printf("- help : displays this text\n");
     printf("- leaderboard : displays a leaderboard stored in rating.dat\n");
     printf("- load-pvp : loads a 2 players game previously saved\n");
-    printf("- pvp : start a 2 players game\n");
+    printf("- pvb : starts a game against a bot\n");
+    printf("- pvp : starts a 2 players game\n");
     printf("- quit : exits the game program\n");
 
     printf("\n");
@@ -79,4 +87,15 @@ void leaderboard()
     print_leaderboard(ratings, nb_ratings);
     printf("Press return to get back to the main menu...");
     getchar();
+}
+
+void menu_start_pvb(){
+    printf("Please choose bot difficulty (1 for easy, or 1 for easy...) : ");
+    bot_difficulty_e bot_diff = input_bot_difficulty();
+    if (bot_diff == -1){
+        printf("Invalid input, press return to get back to the main menu...");
+        getchar();
+        return;
+    }
+    pvb_start(bot_diff);
 }

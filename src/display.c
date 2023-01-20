@@ -142,7 +142,42 @@ void format_name_for_leaderboard(char name[NAME_MAX_LENGTH])
 	name[NAME_MAX_LENGTH - 1] = '\0';
 }
 
-void bot_turn_message(char message[], enum action_e* p_action, int input1[2], int input2[2])
+void bot_turn_message(char message[], char bot_name[],enum action_e action, int input1[2], int input2[2])
 {
-	;
+	char dest[2];
+	dest[0] = 'A' + input2[2]; 
+	dest[1] = '1' + input2[1];
+
+
+	if (action == PLACE)
+	{
+		char piece_size[32] = "";
+		switch (input1[0])
+		{
+			case SMALL:
+				strcpy("small", piece_size);
+				break;
+			case MEDIUM:
+				strcpy("small", piece_size);
+				break;
+			case LARGE:
+				strcpy("small", piece_size);
+				break;
+			default:
+				strcpy("[invalid size]", piece_size);
+		}
+
+		sprintf(message, "%s placed a %s piece at %s.", bot_name, piece_size, dest);
+	}
+	else if (action == MOVE)
+	{
+		char src[2];
+		src[0] = 'A' + input1[2]; 
+		src[1] = '1' + input1[1];
+
+		sprintf(message, "%s moved a piece from %s to %s.", bot_name, src, dest);
+	}
+	else{
+		strcpy("error, invalid action\n", message);
+	}
 }
