@@ -48,7 +48,9 @@ void main_menu()
                 display_intro = true;
                 break;
             case LOAD_PVB:
-                break; //TODO
+                menu_load_pvb();
+                display_intro = true;
+                break;
             case QUIT:
                 printf("exiting game program.\n");
                 running = false;
@@ -69,6 +71,7 @@ void main_help()
 
     printf("- help : displays this text\n");
     printf("- leaderboard : displays a leaderboard stored in rating.dat\n");
+    printf("- load-pvb : loads a game against a bot previously saved\n");
     printf("- load-pvp : loads a 2 players game previously saved\n");
     printf("- pvb : starts a game against a bot\n");
     printf("- pvp : starts a 2 players game\n");
@@ -98,4 +101,15 @@ void menu_start_pvb(){
         return;
     }
     pvb_start(bot_diff);
+}
+
+void menu_load_pvb(){
+    printf("Please choose bot difficulty (1 for easy, or 1 for easy...) : ");
+    bot_difficulty_e bot_diff = input_bot_difficulty();
+    if (bot_diff == -1){
+        printf("Invalid input, press return to get back to the main menu...");
+        getchar();
+        return;
+    }
+    pvb_load(bot_diff);
 }

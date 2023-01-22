@@ -22,4 +22,6 @@ void menu_start_pvb();
 
 void leaderboard();
 
+void menu_load_pvb();
+
 #endif //__MENU_H__

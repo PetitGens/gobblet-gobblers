@@ -17,4 +17,12 @@ void random_place(board game, int* p_size, int dest[2]);
 
 void random_move(board game, int src[2], int dest[2]);
 
+void check_can_win(board game, player bot_player_num);
+
+int two_aligned_in_line(board game, int line, player bot_player_num);
+
+int two_aligned_in_column(board game, int column, player bot_player_num);
+
+int two_aligned_in_diagonal(board game, int y_direction, player bot_player_num, int* p_place_x, int* p_place_y);
+
 #endif //__BOT_H__

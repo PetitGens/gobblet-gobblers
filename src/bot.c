@@ -91,3 +91,91 @@ void random_move(board game, int src[2], int dest[2])
         dest[1] = rand() % DIMENSIONS;
     } while (is_movement_possible(game, src[0], src[1], dest[0], dest[1]) != OK);
 }
+
+void check_can_win(board game, player bot_player_num)
+{
+    ;
+}
+
+int two_aligned_in_line(board game, int line, player bot_player_num)
+{
+    int bot_piece_count = 0;
+    int not_owned_place = 0;
+
+	for (int c = 0; c < DIMENSIONS; c++)
+	{
+		if (get_place_holder(game, line, c) == bot_player_num)
+		{
+			bot_piece_count++;
+		}
+        else
+        {
+            not_owned_place = c;
+        }
+	}
+
+    if (bot_piece_count == 2)
+        return not_owned_place;
+
+    return -1;
+}
+
+int two_aligned_in_column(board game, int column, player bot_player_num)
+{
+    int bot_piece_count = 0;
+    int not_owned_place = 0;
+
+	for (int l = 0; l < DIMENSIONS; l++)
+	{
+		if (get_place_holder(game, l, column) == bot_player_num)
+		{
+			bot_piece_count++;
+		}
+        else
+        {
+            not_owned_place = l;
+        }
+	}
+
+    if (bot_piece_count == 2)
+        return not_owned_place;
+
+    return -1;
+}
+
+int two_aligned_in_diagonal(board game, int y_direction, player bot_player_num, int* p_place_x, int* p_place_y)
+{
+    int bot_piece_count = 0;
+	int line, column = 0;
+
+	if (y_direction == 1)
+	{
+		line = 0;
+	}
+	else
+	{
+		line = DIMENSIONS - 1;
+	}
+
+	for (int i = 0; i < DIMENSIONS; i++)
+	{
+
+		if (get_place_holder(game, line, column) == bot_player_num)
+        {
+            bot_piece_count++;
+        }
+        else
+        {
+            *p_place_x = column;
+            *p_place_y = line;
+        }
+
+        column += 1;
+		line += y_direction;
+	}
+
+	if (bot_piece_count == 2)
+        return 0;
+
+    return -1;
+}

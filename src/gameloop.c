@@ -43,6 +43,25 @@ void pvp_start()
     pvp_loop(game);
 }
 
+void pvp_load()
+{
+    char filename[FILENAME_MAX_LENGTH];
+
+    printf("Please enter the save file name >");
+    
+    input_filename(filename);
+
+    board game = load_game(filename);
+    if (game == NULL)
+    {
+        error_message("The file cannot be opened, or its format is incorrect.");
+    }
+    else
+    {
+        pvp_loop(game);
+    }
+}
+
 void pvb_loop(board game, bot_difficulty_e bot_dif)
 {
     clear_screen();
@@ -85,7 +104,7 @@ void pvb_start(bot_difficulty_e bot_dif)
     pvb_loop(game, bot_dif);
 }
 
-void pvp_load()
+void pvb_load(bot_difficulty_e bot_dif)
 {
     char filename[FILENAME_MAX_LENGTH];
 
@@ -100,6 +119,6 @@ void pvp_load()
     }
     else
     {
-        pvp_loop(game);
+        pvb_loop(game, bot_dif);
     }
 }
