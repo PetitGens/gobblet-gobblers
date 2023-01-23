@@ -92,9 +92,229 @@ void random_move(board game, int src[2], int dest[2])
     } while (is_movement_possible(game, src[0], src[1], dest[0], dest[1]) != OK);
 }
 
-void check_can_win(board game, player bot_player_num)
+int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
 {
-    ;
+    int places[8][3];
+    int nb_places = winnable_places(game, bot_player_num, places);
+    int found = 0, i = 0;
+    
+    while(found == 0 && i < nb_places)
+    {
+        int column = places[i][0], line = places[i][1];
+        direction_e dir = places[i][2];
+
+        switch(dir)
+        {
+            case HORIZONTAL:
+                found = try_to_win_horizontal(game, bot_player_num, p_action, input1, input2, line, column);
+                break;
+            case VERTICAL:
+                found = try_to_win_vertical(game, bot_player_num, p_action, input1, input2, line, column);
+                break;
+            case DIAGONAL_DOWN:
+                found = try_to_win_diagonal_down(game, bot_player_num, p_action, input1, input2, line, column);
+                break;
+            case DIAGONAL_UP:
+                found = try_to_win_diagonal_up(game, bot_player_num, p_action, input1, input2, line, column);
+                break;
+        }
+        i++;
+    }
+
+    return 0;
+}
+
+int try_to_win_horizontal(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2], int line, int column)
+{
+    size not_owned_size = get_piece_size(game, line, column);
+
+    for (size s = not_owned_size + 1; s <= LARGE; s++)
+    {
+        if (get_nb_piece_in_house(game, bot_player_num, s) > 0)
+        {
+            *p_action = PLACE;
+            input1[0] = s;
+            input2[0] = line;
+            input2[1] = column;
+            return 1;
+        }
+    }
+    for (int l = 0; l < 3; l++)
+    {
+        if (l != line)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                if (get_place_holder(game, l, c) == bot_player_num
+                    &&
+                    get_piece_size(game, l, c) > not_owned_size)
+                {
+                    *p_action = MOVE;
+                    input1[0] = l;
+                    input1[1] = c;
+                    input2[0] = line;
+                    input2[1] = column;
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+int try_to_win_vertical(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2], int line, int column)
+{
+    size not_owned_size = get_piece_size(game, line, column);
+
+    for (size s = not_owned_size + 1; s <= LARGE; s++)
+    {
+        if (get_nb_piece_in_house(game, bot_player_num, s) > 0)
+        {
+            *p_action = PLACE;
+            input1[0] = s;
+            input2[0] = line;
+            input2[1] = column;
+            return 1;
+        }
+    }
+    for (int l = 0; l < 3; l++)
+    {
+            for (int c = 0; c < 3; c++)
+            {
+                if (c != column)
+                {
+                    if (get_place_holder(game, l, c) == bot_player_num
+                        &&
+                        get_piece_size(game, l, c) > not_owned_size)
+                    {
+                        *p_action = MOVE;
+                        input1[0] = l;
+                        input1[1] = c;
+                        input2[0] = line;
+                        input2[1] = column;
+                        return 1;
+                    }
+                }
+            }
+    }
+    return 0;
+}
+
+int try_to_win_diagonal_down(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2], int line, int column)
+{
+    size not_owned_size = get_piece_size(game, line, column);
+
+    for (size s = not_owned_size + 1; s <= LARGE; s++)
+    {
+        if (get_nb_piece_in_house(game, bot_player_num, s) > 0)
+        {
+            *p_action = PLACE;
+            input1[0] = s;
+            input2[0] = line;
+            input2[1] = column;
+            return 1;
+        }
+    }
+    for (int l = 0; l < 3; l++)
+    {
+            for (int c = 0; c < 3; c++)
+            {
+                if (c != l){
+                    if (get_place_holder(game, l, c) == bot_player_num
+                        &&
+                        get_piece_size(game, l, c) > not_owned_size)
+                    {
+                        *p_action = MOVE;
+                        input1[0] = l;
+                        input1[1] = c;
+                        input2[0] = line;
+                        input2[1] = column;
+                        return 1;
+                    }
+                }
+        }
+    }
+    return 0;
+}
+
+int try_to_win_diagonal_up(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2], int line, int column)
+{
+    size not_owned_size = get_piece_size(game, line, column);
+
+    for (size s = not_owned_size + 1; s <= LARGE; s++)
+    {
+        if (get_nb_piece_in_house(game, bot_player_num, s) > 0)
+        {
+            *p_action = PLACE;
+            input1[0] = s;
+            input2[0] = line;
+            input2[1] = column;
+            return 1;
+        }
+    }
+    for (int l = 0; l < 3; l++)
+    {
+            for (int c = 0; c < 3; c++)
+            {
+                if (c !=  2-l){
+                    if (get_place_holder(game, l, c) == bot_player_num
+                        &&
+                        get_piece_size(game, l, c) > not_owned_size)
+                    {
+                        *p_action = MOVE;
+                        input1[0] = l;
+                        input1[1] = c;
+                        input2[0] = line;
+                        input2[1] = column;
+                        return 1;
+                    }
+                }
+        }
+    }
+    return 0;
+}
+
+int winnable_places(board game, player bot_player_num, int places[8][3])
+{
+    int line, column;
+    int i = 0; //array index
+
+    for (line = 0; line < 3; line++)
+    {
+        column = two_aligned_in_line(game, line, bot_player_num);
+        if (column != -1)
+        {
+            places[i][0] = line;
+            places[i][1] = column;
+            places[i][2] = HORIZONTAL;
+            i++;
+        }
+    }
+
+    for (column = 0; column < 3; column++)
+    {
+        line = two_aligned_in_column(game, column, bot_player_num);
+        if (line != -1)
+        {
+            places[i][0] = line;
+            places[i][1] = column;
+            places[i][2] = VERTICAL;
+            i++;
+        }
+    }
+
+    for (int y_direction = -1; y_direction <= 1; y_direction += 2)
+    {
+        if (two_aligned_in_diagonal(game, y_direction, bot_player_num, &column, &line) == 0)
+        {
+            places[i][0] = line;
+            places[i][1] = column;
+            places[i][2] = (y_direction + 1) / 2 + DIAGONAL_DOWN;
+            i++;
+        }
+    }
+
+    return i;
 }
 
 int two_aligned_in_line(board game, int line, player bot_player_num)

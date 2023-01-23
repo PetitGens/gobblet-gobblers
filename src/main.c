@@ -31,19 +31,14 @@ int main()
 	place_piece(game, LARGE, 2, 2);
 	print_board(game);
 
-	printf("%d\n", two_aligned_in_line(game, 0, PLAYER_1));
-	printf("%d\n", two_aligned_in_line(game, 1, PLAYER_1));
-	printf("%d\n", two_aligned_in_line(game, 2, PLAYER_1));
+	int places[8][3];
 
-	printf("%d\n", two_aligned_in_column(game, 0, PLAYER_1));
-	printf("%d\n", two_aligned_in_column(game, 1, PLAYER_1));
-	printf("%d\n", two_aligned_in_column(game, 2, PLAYER_1));
+	int taille = winnable_places(game, 1, places);
 
-	int col, line;
-	printf("%d", two_aligned_in_diagonal(game, -1, PLAYER_1, &col, &line));
-	printf(" ; %d:%d\n", col, line);
-	printf("%d", two_aligned_in_diagonal(game, 1, PLAYER_1, &col, &line));
-	printf(" ; %d:%d\n", col, line);
+	for (int i = 0; i < taille; i++)
+	{
+		printf("%d:%d ; %d\n", places[i][0], places[i][1], places[i][2]);
+	}
 
 	return 0;
 }
