@@ -12,6 +12,8 @@ void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char 
 
 void bot_easy(board game, player bot_player_num,  enum action_e* p_action, int input1[2], int input2[2]);
 
+void bot_medium(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2]);
+
 void random_action(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2]);
 
 void random_place(board game, int* p_size, int dest[2]);
@@ -19,6 +21,8 @@ void random_place(board game, int* p_size, int dest[2]);
 void random_move(board game, int src[2], int dest[2]);
 
 int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2]);
+
+int try_to_block_oppo(board game, player bot_player_num);
 
 /*int winnable_places(board game, player bot_player_num, int places[8][3]);
 

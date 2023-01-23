@@ -52,7 +52,7 @@ void main_menu()
                 display_intro = true;
                 break;
             case BVB:
-                bvb_start(EASY, EASY);
+                menu_start_bvb();
                 display_intro = true;
                 break;
             case QUIT:
@@ -98,7 +98,7 @@ void leaderboard()
 }
 
 void menu_start_pvb(){
-    printf("Please choose bot difficulty (1 for easy, or 1 for easy...) : ");
+    printf("Please choose bot difficulty (1 for easy, 2 for medium...) : ");
     bot_difficulty_e bot_diff = input_bot_difficulty();
     if (bot_diff == -1){
         printf("Invalid input, press return to get back to the main menu...");
@@ -109,7 +109,7 @@ void menu_start_pvb(){
 }
 
 void menu_load_pvb(){
-    printf("Please choose bot difficulty (1 for easy, or 1 for easy...) : ");
+    printf("Please choose bot difficulty (1 for easy, 2 for medium...) : ");
     bot_difficulty_e bot_diff = input_bot_difficulty();
     if (bot_diff == -1){
         printf("Invalid input, press return to get back to the main menu...");
@@ -117,4 +117,22 @@ void menu_load_pvb(){
         return;
     }
     pvb_load(bot_diff);
+}
+
+void menu_start_bvb(){
+    printf("Please choose the first bot's difficulty (1 for easy, 2 for medium...) : ");
+    bot_difficulty_e bot_diff = input_bot_difficulty();
+    if (bot_diff == -1){
+        printf("Invalid input, press return to get back to the main menu...");
+        getchar();
+        return;
+    }
+    printf("Please choose the second bot's difficulty (1 for easy, 2 for medium...) : ");
+    bot_difficulty_e bot_diff2 = input_bot_difficulty();
+    if (bot_diff2 == -1){
+        printf("Invalid input, press return to get back to the main menu...");
+        getchar();
+        return;
+    }
+    bvb_start(bot_diff, bot_diff2);
 }

@@ -104,7 +104,7 @@ enum return_code {
 /**
  * @brief number of pieces of each size per player at the beginning.
  */
-#define NB_INITIAL_PIECES 50
+#define NB_INITIAL_PIECES 2
 
 /**
  * @brief the different players for further reference. 
