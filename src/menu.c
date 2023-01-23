@@ -51,6 +51,10 @@ void main_menu()
                 menu_load_pvb();
                 display_intro = true;
                 break;
+            case BVB:
+                bvb_start(EASY, EASY);
+                display_intro = true;
+                break;
             case QUIT:
                 printf("exiting game program.\n");
                 running = false;
@@ -69,6 +73,7 @@ void main_help()
 {
     printf("\nAll commands :\n\n");
 
+    printf("- bvb : starts a game between 2 bots\n");
     printf("- help : displays this text\n");
     printf("- leaderboard : displays a leaderboard stored in rating.dat\n");
     printf("- load-pvb : loads a game against a bot previously saved\n");

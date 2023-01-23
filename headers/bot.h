@@ -18,14 +18,14 @@ void random_place(board game, int* p_size, int dest[2]);
 
 void random_move(board game, int src[2], int dest[2]);
 
-int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
+int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2]);
 
-int winnable_places(board game, player bot_player_num, int places[8][3]);
+/*int winnable_places(board game, player bot_player_num, int places[8][3]);
 
 int two_aligned_in_line(board game, int line, player bot_player_num);
 
 int two_aligned_in_column(board game, int column, player bot_player_num);
 
-int two_aligned_in_diagonal(board game, int y_direction, player bot_player_num, int* p_place_x, int* p_place_y);
+int two_aligned_in_diagonal(board game, int y_direction, player bot_player_num, int* p_place_x, int* p_place_y);*/
 
 #endif //__BOT_H__

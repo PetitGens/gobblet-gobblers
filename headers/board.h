@@ -123,6 +123,8 @@ typedef enum players_e player;
  */
 #define NB_PLAYERS 2
 
+#define RANDOM_FIRST_PLAYER 1
+
 /**@{
  * \name Game creation/deletion functionalities.
  */

@@ -168,6 +168,12 @@ menu_choice input_main_menu()
 	else if (strcmp(choice, "load-pvb") == 0)
 		return LOAD_PVB;
 
+	else if (strcmp(choice, "bvb") == 0)
+		return BVB;
+
+	else if (strcmp(choice, "load-bvb") == 0)
+		return LOAD_BVB;
+
 	else if (strcmp(choice, "quit") == 0)
 		return QUIT;
 

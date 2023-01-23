@@ -43,7 +43,8 @@ void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char 
 
 void bot_easy(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
 {
-    random_action(game, bot_player_num, p_action, input1, input2);
+    if (try_to_win(game, bot_player_num, p_action, input1, input2) == 0)
+        random_action(game, bot_player_num, p_action, input1, input2);
 }
 
 void random_action(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
@@ -92,7 +93,7 @@ void random_move(board game, int src[2], int dest[2])
     } while (is_movement_possible(game, src[0], src[1], dest[0], dest[1]) != OK);
 }
 
-int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
+/*int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
 {
     int places[8][3];
     int nb_places = winnable_places(game, bot_player_num, places);
@@ -398,4 +399,69 @@ int two_aligned_in_diagonal(board game, int y_direction, player bot_player_num, 
         return 0;
 
     return -1;
+}*/
+
+int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
+{
+    enum possible_e possible = determine_possible_action(game, bot_player_num);
+
+    for (enum action_e action = 1; action <= 2; action++)
+    {
+        if (action == PLACE && possible != MOVE_ONLY)
+        {
+            for (size s = SMALL; s <= LARGE; s++)
+            {
+                for (int line = 0; line < 3; line++)
+                {
+                    for (int col = 0; col < 3; col++)
+                    {
+                        board copy = copy_game(game);
+                        place_piece(copy, s, line, col);
+                        if (get_winner(copy) == bot_player_num)
+                        {
+                            *p_action = action;
+                            input1[0] = s;
+                            input2[0] = line;
+                            input2[1] = col;
+                            destroy_game(copy);
+
+                            return 1;
+                        }
+                        destroy_game(copy);
+                    }
+                }
+            }
+        }
+        else if (action == MOVE && possible != PLACE_ONLY)
+        {
+            for (int src_line = 0; src_line < 3; src_line++)
+            {
+                for (int src_col = 0; src_col < 3; src_col++)
+                {
+                    for (int dest_line = 0; dest_line < 3; dest_line++)
+                    {
+                        for (int dest_col = 3; dest_col < 3; dest_col++)
+                        {
+                            board copy = copy_game(game);
+                            move_piece(game, src_line, src_col, dest_line, dest_col);
+                            if (get_winner(copy) == bot_player_num)
+                            {
+                                *p_action = action;
+                                input1[0] = src_line;
+                                input2[1] = src_col;
+                                input2[0] = dest_line;
+                                input2[1] = dest_col;
+                                destroy_game(copy);
+
+                                return 1;
+                            }
+                            destroy_game(copy);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return 0;
 }

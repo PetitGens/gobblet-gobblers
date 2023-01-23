@@ -52,7 +52,11 @@ board new_game(){
 		new_board->squares[i] = current_square;
 	}
 
-	new_board->current_player = rand() % NB_PLAYERS + 1;
+	if (RANDOM_FIRST_PLAYER == 1)
+		new_board->current_player = rand() % NB_PLAYERS + 1;
+
+	else
+		new_board->current_player = PLAYER_1;
 
 	return new_board;
 }
