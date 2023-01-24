@@ -4,6 +4,7 @@
         "menu.h": "c",
         "input.h": "c",
         "display.h": "c",
-        "gameloop.h": "c"
+        "gameloop.h": "c",
+        "stdio.h": "c"
     }
 }

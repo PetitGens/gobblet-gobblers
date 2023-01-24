@@ -8,6 +8,12 @@ typedef enum {EASY, MEDIUM_DIFF, HARD} bot_difficulty_e;
 
 typedef enum {HORIZONTAL, VERTICAL, DIAGONAL_DOWN, DIAGONAL_UP} direction_e;
 
+typedef struct{
+    enum action_e action;
+    int input1[2];
+    int input2[2];
+} movement_s;
+
 void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[]);
 
 void bot_easy(board game, player bot_player_num,  enum action_e* p_action, int input1[2], int input2[2]);
@@ -23,6 +29,8 @@ void random_move(board game, int src[2], int dest[2]);
 int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2]);
 
 int try_to_block_oppo(board game, player bot_player_num);
+
+int random_games(board game, player bot_player_num);
 
 /*int winnable_places(board game, player bot_player_num, int places[8][3]);
 

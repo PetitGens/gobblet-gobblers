@@ -6,6 +6,14 @@
 #include "../headers/display.h"
 #include "../headers/input.h"
 
+#define RECURSIVE_LIMIT 1000
+#define RANDOM_GAMES_NUMBER 100
+
+/*typedef struct {
+    moves_tree_s* branches [108];
+    int size;
+} moves_tree_s;*/
+
 void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[])
 {
     enum action_e action;
@@ -264,6 +272,56 @@ int try_to_block_oppo(board game, player bot_player_num)
     }
 
     return 0;
+}
+
+int minimax(board game, player bot_player_num,int depth)
+{
+    if (depth > RECURSIVE_LIMIT)
+    {
+        return 0;
+    }
+    return 0;
+}
+
+int random_games(board game, player bot_player_num)
+{
+    int win_count = 0;
+
+    for (int i = 0; i < RANDOM_GAMES_NUMBER; i++)
+    {
+        board copy = copy_game(game);
+
+        player winner = get_winner(copy);
+
+        while(winner == NO_PLAYER)
+        {
+
+            movement_s move_s;
+            random_action(copy, next_player(copy),&(move_s.action), move_s.input1, move_s.input2);
+
+            if (move_s.action == PLACE)
+            {
+                place_piece(copy, move_s.input1[0], move_s.input2[0], move_s.input2[1]);
+            }
+            else
+            {
+                move_piece(copy, move_s.input1[0], move_s.input1[1], move_s.input2[0], move_s.input2[1]);
+            }
+
+            print_board(copy);
+
+            winner = get_winner(copy);
+        }
+
+        if (winner == bot_player_num)
+        {
+            win_count++;
+        }
+
+        destroy_game(copy);
+    }
+
+    return win_count;
 }
 
 /*int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
