@@ -103,7 +103,7 @@ void bot_medium(board game, player bot_player_num, enum action_e* p_action, int 
 
 void random_action(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
 {
-    enum possible_e possible_action = determine_possible_action(game, bot_player_num);
+    /*enum possible_e possible_action = determine_possible_action(game, bot_player_num);
 
     if (possible_action == PLACE_ONLY)
     {
@@ -112,20 +112,24 @@ void random_action(board game, player bot_player_num, enum action_e* p_action, i
     else if (possible_action == MOVE_ONLY)
     {
         *p_action = MOVE;
-    }
-    else
+    }*/
+
+    int is_action_possible = 0;
+
+    do
     {
         *p_action = rand() % 2 + 1;
-    }
-    
-    if (*p_action == PLACE)
-    {
-        random_place(game, &input1[0], input2);
-    }
-    else
-    {
-        random_move(game, input1, input2);
-    }
+
+        
+        if (*p_action == PLACE)
+        {
+            random_place(game, &input1[0], input2);
+        }
+        else
+        {
+            random_move(game, input1, input2);
+        }
+    } 
 }
 
 void random_place(board game, int* p_size, int dest[2])
@@ -302,13 +306,19 @@ int random_games(board game, player bot_player_num)
             if (move_s.action == PLACE)
             {
                 place_piece(copy, move_s.input1[0], move_s.input2[0], move_s.input2[1]);
+                printf("place_piece(game, %d, %d, %d);\n", move_s.input1[0], move_s.input2[0], move_s.input2[1]);
             }
             else
             {
                 move_piece(copy, move_s.input1[0], move_s.input1[1], move_s.input2[0], move_s.input2[1]);
+                printf("move_piece(game, %d, %d, %d, %d);\n", move_s.input1[0], move_s.input1[1], move_s.input2[0], move_s.input2[1]);
             }
 
-            print_board(copy);
+            //print_board(copy);
+
+            /*char message[64];
+            bot_turn_message(message, "BOT", move_s.action, move_s.input1, move_s.input2);
+            printf("%s\n", message);*/
 
             winner = get_winner(copy);
         }
@@ -319,6 +329,8 @@ int random_games(board game, player bot_player_num)
         }
 
         destroy_game(copy);
+
+        printf("\n\n\n\n");
     }
 
     return win_count;
