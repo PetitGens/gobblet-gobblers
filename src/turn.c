@@ -172,7 +172,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 
 	
 
-	clear_screen();
+	//clear_screen();
 	print_board(game);
 	printf("\n");
 	

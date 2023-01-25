@@ -1,7 +1,9 @@
+
 gobblet : bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o bin/bot.o
 	gcc -Wall -o gobblet.out bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o bin/bot.o -lm -g
 
 bin/main.o : src/main.c
+	mkdir -p bin
 	gcc -Wall -c src/main.c -o bin/main.o -g
 
 bin/board.o : src/board.c

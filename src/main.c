@@ -13,35 +13,24 @@ int main()
 {
 	srand(time(NULL));
 
-	//main_menu();
+	main_menu();
 
-	board game = new_game();
-	/*for (int i = 0; i < 10; i++)
-		printf("%d\n", random_games(game, PLAYER_1));*/
+	/*board game = new_game();
+	
+	movement_s my_move;
 
-	place_piece(game, 2, 1, 2);
-	place_piece(game, 2, 1, 0);
-	place_piece(game, 3, 0, 0);
-	place_piece(game, 2, 2, 1);
-	place_piece(game, 1, 2, 0);
-	place_piece(game, 1, 1, 1);
-	move_piece(game, 1, 2, 1, 1);
-	place_piece(game, 3, 2, 0);
-	place_piece(game, 3, 2, 1);
-	place_piece(game, 3, 2, 2);
-	move_piece(game, 1, 1, 0, 1);
-	move_piece(game, 2, 0, 0, 1);
-	move_piece(game, 2, 1, 1, 1);
-	place_piece(game, 1, 0, 2);
-	place_piece(game, 2, 1, 2);
-	move_piece(game, 0, 1, 0, 2);
+	printf("%d\n", minimax(game, next_player(game), 0, &my_move, 100000));
 
-	enum action_e action;
-	int input1[2], input2[2];
+	if (my_move.action == PLACE)
+	{
+		place_piece(game, my_move.input1[0], my_move.input2[0], my_move.input2[1]);
+	}
+	else
+	{
+		move_piece(game, my_move.input1[0], my_move.input1[1], my_move.input2[0], my_move.input2[1]);
+	}
 
-	random_action(game, next_player(game), &action, input1, input2);
-
-	print_board(game);
+	print_board(game);*/
 	
 	return 0;
 }

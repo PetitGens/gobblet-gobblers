@@ -6,7 +6,7 @@
 #include "../headers/display.h"
 #include "../headers/input.h"
 
-#define RECURSIVE_LIMIT 1000
+#define RECURSIVE_LIMIT 2
 #define RANDOM_GAMES_NUMBER 100
 
 /*typedef struct {
@@ -27,6 +27,9 @@ void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char 
             break;
         case MEDIUM_DIFF:
             bot_medium(game, bot_player_num, &action, input1, input2);
+            break;
+        case HARD:
+            bot_hard(game, bot_player_num, &action, input1, input2);
             break;
         default :
             printf("difficulty = %d\n", bot_dif);
@@ -63,17 +66,17 @@ void bot_medium(board game, player bot_player_num, enum action_e* p_action, int 
 {
     if (try_to_win(game, bot_player_num, p_action, input1, input2) == 1)
     {
-        printf("je peux gagner\n");
+        //printf("je peux gagner\n");
         return;
     }
 
     if (try_to_block_oppo(game, bot_player_num) == 0)
     {
         random_action(game, bot_player_num, p_action, input1, input2);
-        printf("je ne peux pas bloquer\n");
+        //printf("je ne peux pas bloquer\n");
         return;
     }
-    printf("je peux jouer pour empécher la victoire de l'adversaire\n");
+    //printf("je peux jouer pour empécher la victoire de l'adversaire\n");
 
     enum return_code ret = OK;
     int oppo_can_win = 1;
@@ -98,7 +101,17 @@ void bot_medium(board game, player bot_player_num, enum action_e* p_action, int 
         oppo_can_win = try_to_win(copy, bot_player_num % 2 + 1, &action, tab1, tab2);
         destroy_game(copy);
     }
+}
 
+void bot_hard(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
+{
+    movement_s the_move;
+    printf("%d\n", minimax(game, bot_player_num, 0, &the_move, RANDOM_GAMES_NUMBER));
+    *p_action = the_move.action;
+    input1[0] = the_move.input1[0];
+    input2[1] = the_move.input1[1];
+    input2[0] = the_move.input2[0];
+    input2[1] = the_move.input2[1];
 }
 
 void random_action(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
@@ -116,7 +129,7 @@ void random_action(board game, player bot_player_num, enum action_e* p_action, i
 
     int is_action_possible = 0;
 
-    do
+    while(is_action_possible == 0)
     {
         *p_action = rand() % 2 + 1;
 
@@ -124,31 +137,35 @@ void random_action(board game, player bot_player_num, enum action_e* p_action, i
         if (*p_action == PLACE)
         {
             random_place(game, &input1[0], input2);
+            if (is_placement_possible(game, input1[0], input2[0], input2[1]) == OK)
+            {
+                is_action_possible = 1;
+            }
         }
         else
         {
             random_move(game, input1, input2);
+            if (is_movement_possible(game, input1[0], input1[1], input2[0], input2[1]) == OK)
+            {
+                is_action_possible = 1;
+            }
         }
     } 
 }
 
 void random_place(board game, int* p_size, int dest[2])
 {
-    do {
-        *p_size = rand() % NB_SIZE + 1;
-        dest[0] = rand() % DIMENSIONS;
-        dest[1] = rand() % DIMENSIONS;
-    } while (is_placement_possible(game, *p_size, dest[0], dest[1]) != OK);
+    *p_size = rand() % NB_SIZE + 1;
+    dest[0] = rand() % DIMENSIONS;
+    dest[1] = rand() % DIMENSIONS;
 }
 
 void random_move(board game, int src[2], int dest[2])
 {
-    do {
-        src[0] = rand() % DIMENSIONS;
-        src[1] = rand() % DIMENSIONS;
-        dest[0] = rand() % DIMENSIONS;
-        dest[1] = rand() % DIMENSIONS;
-    } while (is_movement_possible(game, src[0], src[1], dest[0], dest[1]) != OK);
+    src[0] = rand() % DIMENSIONS;
+    src[1] = rand() % DIMENSIONS;
+    dest[0] = rand() % DIMENSIONS;
+    dest[1] = rand() % DIMENSIONS;
 }
 
 int try_to_win(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
@@ -278,13 +295,238 @@ int try_to_block_oppo(board game, player bot_player_num)
     return 0;
 }
 
-int minimax(board game, player bot_player_num,int depth)
+int minimax(board game, player bot_player_num, int depth, movement_s* p_movement, int alpha_beta)
 {
     if (depth > RECURSIVE_LIMIT)
     {
-        return 0;
+        return random_games(game, bot_player_num);
     }
-    return 0;
+
+    if (next_player(game) == bot_player_num)
+    {
+        enum possible_e possible = determine_possible_action(game, bot_player_num);
+
+        int max = -1;
+
+        for (enum action_e action = 1; action <= 2; action++)
+        {
+            if (action == PLACE && possible != MOVE_ONLY)
+            {
+                for (size s = SMALL; s <= LARGE; s++)
+                {
+                    for (int line = 0; line < 3; line++)
+                    {
+                        for (int col = 0; col < 3; col++)
+                        {
+                            board copy = copy_game(game);
+                            if (place_piece(copy, s, line, col) == OK)
+                            {
+                                int value;
+
+                                if (get_winner(copy) == bot_player_num)
+                                {
+                                    value = RANDOM_GAMES_NUMBER;
+                                }
+                                else if (get_winner(copy) == bot_player_num % 2 + 1)
+                                {
+                                    value = 0;
+                                }
+                                else
+                                {
+                                    value = minimax(copy, bot_player_num, depth + 1, p_movement, max);
+                                }
+
+                                if (depth > 0 && value > alpha_beta)
+                                {
+                                    return RANDOM_GAMES_NUMBER + 1;
+                                }
+
+                                if (value > max)
+                                {
+                                    max = value;
+                                    if (depth == 0)
+                                    {
+                                        p_movement->action = action;
+                                        p_movement->input1[0] = s;
+                                        p_movement->input2[0] = line;
+                                        p_movement->input2[1] = col;
+                                    }
+                                }
+                            }
+                            destroy_game(copy);
+                        }
+                    }
+                }
+            }
+            else if (action == MOVE && possible != PLACE_ONLY)
+            {
+                for (int src_line = 0; src_line < 3; src_line++)
+                {
+                    for (int src_col = 0; src_col < 3; src_col++)
+                    {
+                        for (int dest_line = 0; dest_line < 3; dest_line++)
+                        {
+                            for (int dest_col = 3; dest_col < 3; dest_col++)
+                            {
+                                board copy = copy_game(game);
+                                
+                                if (move_piece(copy, src_line, src_col, dest_line, dest_col) == OK)
+                                {
+                                    int value;
+
+                                    if (get_winner(copy) == bot_player_num)
+                                    {
+                                        value = RANDOM_GAMES_NUMBER;
+                                    }
+                                    else if (get_winner(copy) == bot_player_num % 2 + 1)
+                                    {
+                                        value = 0;
+                                    }
+                                    else
+                                    {
+                                        value = minimax(copy, bot_player_num, depth + 1, p_movement, max);
+                                    }
+
+                                    if (depth > 0 && value > alpha_beta)
+                                    {
+                                        return RANDOM_GAMES_NUMBER;
+                                    }
+
+                                    if (value > max)
+                                    {
+                                        max = value;
+                                        if (depth == 0)
+                                        {
+                                            p_movement->action = action;
+                                            p_movement->input1[0] = src_line;
+                                            p_movement->input1[1] = src_col;
+                                            p_movement->input2[0] = dest_line;
+                                            p_movement->input2[1] = dest_col;
+                                        }
+                                    }
+                                }
+                                destroy_game(copy);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return max;
+    }
+
+    // next_player(game) != bot_player num
+
+    enum possible_e possible = determine_possible_action(game, bot_player_num);
+
+    int min = RANDOM_GAMES_NUMBER + 1;
+
+    for (enum action_e action = 1; action <= 2; action++)
+    {
+        if (action == PLACE && possible != MOVE_ONLY)
+        {
+            for (size s = SMALL; s <= LARGE; s++)
+            {
+                for (int line = 0; line < 3; line++)
+                {
+                    for (int col = 0; col < 3; col++)
+                    {
+                        board copy = copy_game(game);
+                        if (place_piece(copy, s, line, col) == OK)
+                        {
+                            int value;
+
+                            if (get_winner(copy) == bot_player_num)
+                            {
+                                value = RANDOM_GAMES_NUMBER;
+                            }
+                            else if (get_winner(copy) == bot_player_num % 2 + 1)
+                            {
+                                value = 0;
+                            }
+                            else
+                            {
+                                value = minimax(copy, bot_player_num, depth + 1, p_movement, min);
+                            }
+
+                            if (depth > 0 && value < alpha_beta)
+                            {
+                                return 0;
+                            }
+
+                            if (value < min)
+                            {
+                                min = value;
+                                if (depth == 0)
+                                {
+                                    p_movement->action = action;
+                                    p_movement->input1[0] = s;
+                                    p_movement->input2[0] = line;
+                                    p_movement->input2[1] = col;
+                                }
+                            }
+                        }
+
+                        destroy_game(copy);
+                    }
+                }
+            }
+        }
+        else if (action == MOVE && possible != PLACE_ONLY)
+        {
+            for (int src_line = 0; src_line < 3; src_line++)
+            {
+                for (int src_col = 0; src_col < 3; src_col++)
+                {
+                    for (int dest_line = 0; dest_line < 3; dest_line++)
+                    {
+                        for (int dest_col = 3; dest_col < 3; dest_col++)
+                        {
+                            board copy = copy_game(game);
+                            
+                            if (move_piece(copy, src_line, src_col, dest_line, dest_col) == OK)
+                            {
+                                int value;
+
+                                if (get_winner(copy) == bot_player_num)
+                                {
+                                    value = RANDOM_GAMES_NUMBER;
+                                }
+                                else if (get_winner(copy) == bot_player_num % 2 + 1)
+                                {
+                                    value = 0;
+                                }
+                                else
+                                {
+                                    value = minimax(copy, bot_player_num, depth + 1, p_movement, min);
+                                }
+
+                                if (depth > 0 && value < alpha_beta)
+                                {
+                                    return 0;
+                                }
+
+                                if (value < min)
+                                {
+                                    min = value;
+                                    if (depth == 0)
+                                    {
+                                        p_movement->action = action;
+                                        p_movement->input1[0] = src_line;
+                                        p_movement->input1[1] = src_col;
+                                        p_movement->input2[0] = dest_line;
+                                        p_movement->input2[1] = dest_col;
+                                    }
+                                }
+                            }
+                            destroy_game(copy);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return min;
 }
 
 int random_games(board game, player bot_player_num)
@@ -306,12 +548,12 @@ int random_games(board game, player bot_player_num)
             if (move_s.action == PLACE)
             {
                 place_piece(copy, move_s.input1[0], move_s.input2[0], move_s.input2[1]);
-                printf("place_piece(game, %d, %d, %d);\n", move_s.input1[0], move_s.input2[0], move_s.input2[1]);
+                //printf("place_piece(game, %d, %d, %d);\n", move_s.input1[0], move_s.input2[0], move_s.input2[1]);
             }
             else
             {
                 move_piece(copy, move_s.input1[0], move_s.input1[1], move_s.input2[0], move_s.input2[1]);
-                printf("move_piece(game, %d, %d, %d, %d);\n", move_s.input1[0], move_s.input1[1], move_s.input2[0], move_s.input2[1]);
+                //printf("move_piece(game, %d, %d, %d, %d);\n", move_s.input1[0], move_s.input1[1], move_s.input2[0], move_s.input2[1]);
             }
 
             //print_board(copy);
@@ -330,7 +572,7 @@ int random_games(board game, player bot_player_num)
 
         destroy_game(copy);
 
-        printf("\n\n\n\n");
+        //printf("\n\n\n\n");
     }
 
     return win_count;
