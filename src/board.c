@@ -52,11 +52,15 @@ board new_game(){
 		new_board->squares[i] = current_square;
 	}
 
-	if (RANDOM_FIRST_PLAYER == 1)
+	if (FIRST_PLAYER == RANDOM)
+	{
 		new_board->current_player = rand() % NB_PLAYERS + 1;
-
+	}
 	else
-		new_board->current_player = PLAYER_1;
+	{
+		new_board->current_player = FIRST_PLAYER;
+	}
+		
 
 	return new_board;
 }
@@ -523,3 +527,9 @@ void save_game(board game, char * filename)
 
 	fclose(stream);
 }
+#ifdef DEBUG
+int board_size()
+{
+	return (int)sizeof(struct board_s);
+}
+#endif

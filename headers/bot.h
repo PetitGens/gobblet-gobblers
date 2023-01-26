@@ -32,7 +32,7 @@ int try_to_win(board game, player bot_player_num, enum action_e* p_action, int i
 
 int try_to_block_oppo(board game, player bot_player_num);
 
-int minimax(board game, player bot_player_num, int depth, movement_s* p_movement, int alpha_beta);
+int minimax(board game, player bot_player_num, int depth, movement_s* p_movement, int uncle, int great_uncle, int great_great_uncle);
 
 int random_games(board game, player bot_player_num);
 

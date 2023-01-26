@@ -6,8 +6,12 @@
 #include "../headers/display.h"
 #include "../headers/input.h"
 
-#define RECURSIVE_LIMIT 3
+#define RECURSIVE_LIMIT 2
 #define RANDOM_GAMES_NUMBER 100
+
+#ifdef DEBUG
+int allocated_board = 0;
+#endif
 
 void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[])
 {
@@ -85,6 +89,10 @@ void bot_medium(board game, player bot_player_num, enum action_e* p_action, int 
     while(ret != OK || oppo_can_win == 1)
     {
         random_action(game, bot_player_num, p_action, input1, input2);
+
+        #ifdef DEBUG
+        allocated_board++;
+        #endif
         board copy = copy_game(game);
         
         
@@ -100,6 +108,9 @@ void bot_medium(board game, player bot_player_num, enum action_e* p_action, int 
         enum action_e action;
         int tab1[2], tab2[2];
         oppo_can_win = try_to_win(copy, bot_player_num % 2 + 1, &action, tab1, tab2);
+        #ifdef DEBUG
+        allocated_board--;
+        #endif
         destroy_game(copy);
     }
 }
@@ -107,7 +118,7 @@ void bot_medium(board game, player bot_player_num, enum action_e* p_action, int 
 void bot_hard(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
 {
     movement_s the_move;
-    int value = minimax(game, bot_player_num, 0, &the_move, RANDOM_GAMES_NUMBER);
+    int value = minimax(game, bot_player_num, 0, &the_move, 0, 0, 0);
     printf("%d\n", value);
     
     if (value == 0)
@@ -115,6 +126,10 @@ void bot_hard(board game, player bot_player_num, enum action_e* p_action, int in
 		bot_medium(game, bot_player_num, p_action, input1, input2);
 		return;
 	}
+    else if (value == RANDOM_GAMES_NUMBER)
+    {
+        try_to_win(game, bot_player_num, p_action, input1, input2);
+    }
     
     *p_action = the_move.action;
     input1[0] = the_move.input1[0];
@@ -191,6 +206,9 @@ int try_to_win(board game, player bot_player_num, enum action_e* p_action, int i
                 {
                     for (int col = 0; col < 3; col++)
                     {
+                        #ifdef DEBUG
+                        allocated_board++;
+                        #endif
                         board copy = copy_game(game);
                         place_piece(copy, s, line, col);
                         if (get_winner(copy) == bot_player_num)
@@ -199,10 +217,16 @@ int try_to_win(board game, player bot_player_num, enum action_e* p_action, int i
                             input1[0] = s;
                             input2[0] = line;
                             input2[1] = col;
+                            #ifdef DEBUG
+                            allocated_board--;
+                            #endif
                             destroy_game(copy);
 
                             return 1;
                         }
+                        #ifdef DEBUG
+                        allocated_board--;
+                        #endif
                         destroy_game(copy);
                     }
                 }
@@ -218,6 +242,9 @@ int try_to_win(board game, player bot_player_num, enum action_e* p_action, int i
                     {
                         for (int dest_col = 3; dest_col < 3; dest_col++)
                         {
+                            #ifdef DEBUG
+                            allocated_board++;
+                            #endif
                             board copy = copy_game(game);
                             move_piece(copy, src_line, src_col, dest_line, dest_col);
                             if (get_winner(copy) == bot_player_num)
@@ -227,10 +254,16 @@ int try_to_win(board game, player bot_player_num, enum action_e* p_action, int i
                                 input2[1] = src_col;
                                 input2[0] = dest_line;
                                 input2[1] = dest_col;
+                                #ifdef DEBUG
+                                allocated_board--;
+                                #endif
                                 destroy_game(copy);
 
                                 return 1;
                             }
+                            #ifdef DEBUG
+                            allocated_board--;
+                            #endif
                             destroy_game(copy);
                         }
                     }
@@ -256,6 +289,9 @@ int try_to_block_oppo(board game, player bot_player_num)
                 {
                     for (int col = 0; col < 3; col++)
                     {
+                        #ifdef DEBUG
+                        allocated_board++;
+                        #endif
                         board copy = copy_game(game);
                         if (place_piece(copy, s, line, col) == OK){
                             enum action_e action;
@@ -263,10 +299,16 @@ int try_to_block_oppo(board game, player bot_player_num)
 
                             if (try_to_win(copy, bot_player_num % 2 + 1, &action, input1, input2) == 0)
                             {
+                                #ifdef DEBUG
+                                allocated_board--;
+                                #endif
                                 destroy_game(copy);
                                 return 1;
                             }
                         }
+                        #ifdef DEBUG
+                        allocated_board--;
+                        #endif
                         destroy_game(copy);
                     }
                 }
@@ -282,6 +324,9 @@ int try_to_block_oppo(board game, player bot_player_num)
                     {
                         for (int dest_col = 3; dest_col < 3; dest_col++)
                         {
+                            #ifdef DEBUG
+                            allocated_board++;
+                            #endif
                             board copy = copy_game(game);
                             if (move_piece(copy, src_line, src_col, dest_line, dest_col) == OK) {
                                 enum action_e action;
@@ -289,10 +334,16 @@ int try_to_block_oppo(board game, player bot_player_num)
 
                                 if (try_to_win(copy, bot_player_num % 2 + 1, &action, input1, input2) == 0)
                                 {
+                                    #ifdef DEBUG
+                                    allocated_board--;
+                                    #endif
                                     destroy_game(copy);
                                     return 1;
                                 }
                             }
+                            #ifdef DEBUG
+                            allocated_board--;
+                            #endif
                             destroy_game(copy);
                         }
                     }
@@ -304,7 +355,7 @@ int try_to_block_oppo(board game, player bot_player_num)
     return 0;
 }
 
-int minimax(board game, player bot_player_num, int depth, movement_s* p_movement, int alpha_beta)
+int minimax(board game, player bot_player_num, int depth, movement_s* p_movement, int uncle, int great_uncle, int great_great_uncle)
 {
     if (depth > RECURSIVE_LIMIT)
     {
@@ -327,6 +378,9 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                     {
                         for (int col = 0; col < 3; col++)
                         {
+                            #ifdef DEBUG
+                            allocated_board++;
+                            #endif
                             board copy = copy_game(game);
                             if (place_piece(copy, s, line, col) == OK)
                             {
@@ -342,11 +396,32 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                 }
                                 else
                                 {
-                                    value = minimax(copy, bot_player_num, depth + 1, p_movement, max);
+                                    
+                                    #ifdef DEBUG
+                                    print_board(copy);
+                                    printf("recursive minimax call ; depth=%d, action=place, size=%d, line=%d; col=%d\n", depth, s, line, col);
+                                    //printf("allocated=%d\n", allocated_board);
+                                    #endif
+                                    value = minimax(copy, bot_player_num, depth + 1, p_movement, max, uncle, great_uncle);
+                                    #ifdef DEBUG
+                                    printf("out of minimax\n");
+                                    #endif
                                 }
 
-                                if (depth > 0 && value > alpha_beta)
+                                if (depth > 0 && value > uncle)
                                 {
+                                    #ifdef DEBUG
+                                    allocated_board--;
+                                    #endif
+                                    destroy_game(copy);
+                                    return RANDOM_GAMES_NUMBER + 1;
+                                }
+                                if (depth > 3 && value > great_great_uncle)
+                                {
+                                    #ifdef DEBUG
+                                    allocated_board--;
+                                    #endif
+                                    destroy_game(copy);
                                     return RANDOM_GAMES_NUMBER + 1;
                                 }
 
@@ -362,6 +437,9 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                     }
                                 }
                             }
+                            #ifdef DEBUG
+                            allocated_board--;
+                            #endif
                             destroy_game(copy);
                         }
                     }
@@ -377,6 +455,9 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                         {
                             for (int dest_col = 3; dest_col < 3; dest_col++)
                             {
+                                #ifdef DEBUG
+                                allocated_board++;
+                                #endif
                                 board copy = copy_game(game);
                                 
                                 if (move_piece(copy, src_line, src_col, dest_line, dest_col) == OK)
@@ -393,12 +474,33 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                     }
                                     else
                                     {
-                                        value = minimax(copy, bot_player_num, depth + 1, p_movement, max);
+                                        #ifdef DEBUG
+                                        print_board(copy);
+                                        printf("recursive minimax call ; depth=%d, action=move, src_line=%d, src_col=%d, dest_line=%d; dest_col=%d\n",
+                                            depth, src_line, src_col, dest_line, dest_col);
+                                        //printf("allocated=%d\n", allocated_board);
+                                        #endif
+                                        value = minimax(copy, bot_player_num, depth + 1, p_movement, max, uncle, great_uncle);
+                                        #ifdef DEBUG
+                                        printf("out of minimax\n");
+                                        #endif
                                     }
 
-                                    if (depth > 0 && value > alpha_beta)
+                                    if (depth > 0 && value > uncle)
                                     {
+                                        #ifdef DEBUG
+                                        allocated_board--;
+                                        #endif
+                                        destroy_game(copy);
                                         return RANDOM_GAMES_NUMBER;
+                                    }
+                                    if (depth > 3 && value > great_great_uncle)
+                                    {
+                                        #ifdef DEBUG
+                                        allocated_board--;
+                                        #endif
+                                        destroy_game(copy);
+                                        return RANDOM_GAMES_NUMBER + 1;
                                     }
 
                                     if (value > max)
@@ -414,6 +516,9 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                         }
                                     }
                                 }
+                                #ifdef DEBUG
+                                allocated_board--;
+                                #endif
                                 destroy_game(copy);
                             }
                         }
@@ -440,6 +545,9 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                 {
                     for (int col = 0; col < 3; col++)
                     {
+                        #ifdef DEBUG
+                        allocated_board++;
+                        #endif
                         board copy = copy_game(game);
                         if (place_piece(copy, s, line, col) == OK)
                         {
@@ -455,11 +563,32 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                             }
                             else
                             {
-                                value = minimax(copy, bot_player_num, depth + 1, p_movement, min);
+                                #ifdef DEBUG
+                                print_board(copy);
+                                printf("recursive minimax call ; depth=%d, action=place, size=%d, line=%d; col=%d\n", depth, s, line, col);
+                                //printf("allocated=%d\n", allocated_board);
+                                #endif
+                                value = minimax(copy, bot_player_num, depth + 1, p_movement, min, uncle, great_uncle);
+                                #ifdef DEBUG
+                                printf("out of minimax\n");
+                                #endif
+
                             }
 
-                            if (depth > 0 && value < alpha_beta)
+                            if (depth > 0 && value < uncle)
                             {
+                                #ifdef DEBUG
+                                allocated_board--;
+                                #endif
+                                destroy_game(copy);
+                                return 0;
+                            }
+                            if (depth > 3 && value < great_great_uncle)
+                            {
+                                #ifdef DEBUG
+                                allocated_board--;
+                                #endif
+                                destroy_game(copy);
                                 return 0;
                             }
 
@@ -475,7 +604,9 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                 }
                             }
                         }
-
+                        #ifdef DEBUG
+                        allocated_board--;
+                        #endif
                         destroy_game(copy);
                     }
                 }
@@ -491,6 +622,9 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                     {
                         for (int dest_col = 3; dest_col < 3; dest_col++)
                         {
+                            #ifdef DEBUG
+                            allocated_board++;
+                            #endif
                             board copy = copy_game(game);
                             
                             if (move_piece(copy, src_line, src_col, dest_line, dest_col) == OK)
@@ -507,11 +641,32 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                 }
                                 else
                                 {
-                                    value = minimax(copy, bot_player_num, depth + 1, p_movement, min);
+                                    #ifdef DEBUG
+                                    print_board(copy);
+                                    printf("recursive minimax call ; depth=%d, action=move, src_line=%d, src_col=%d, dest_line=%d; dest_col=%d\n",
+                                        depth, src_line, src_col, dest_line, dest_col);
+                                    //printf("allocated=%d\n", allocated_board);
+                                    #endif
+                                    value = minimax(copy, bot_player_num, depth + 1, p_movement, min, uncle, great_uncle);
+                                    #ifdef DEBUG
+                                    printf("out of minimax\n");
+                                    #endif
                                 }
 
-                                if (depth > 0 && value < alpha_beta)
+                                if (depth > 0 && value < uncle)
                                 {
+                                    #ifdef DEBUG
+                                    allocated_board--;
+                                    #endif
+                                    destroy_game(copy);
+                                    return 0;
+                                }
+                                if (depth > 3 && value < great_great_uncle)
+                                {
+                                    #ifdef DEBUG
+                                    allocated_board--;
+                                    #endif
+                                    destroy_game(copy);
                                     return 0;
                                 }
 
@@ -528,6 +683,9 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                     }
                                 }
                             }
+                            #ifdef DEBUG
+                            allocated_board--;
+                            #endif
                             destroy_game(copy);
                         }
                     }
@@ -544,6 +702,9 @@ int random_games(board game, player bot_player_num)
 
     for (int i = 0; i < RANDOM_GAMES_NUMBER; i++)
     {
+        #ifdef DEBUG
+        allocated_board++;
+        #endif
         board copy = copy_game(game);
 
         player winner = get_winner(copy);
@@ -565,11 +726,17 @@ int random_games(board game, player bot_player_num)
                 //printf("move_piece(game, %d, %d, %d, %d);\n", move_s.input1[0], move_s.input1[1], move_s.input2[0], move_s.input2[1]);
             }
 
-            //print_board(copy);
+            #ifdef DEBUG
+            char message[64];
+            char player_name[16];
+            sprintf(player_name, "Player%d", next_player(copy) % 2 + 1);
+            bot_turn_message(message, player_name, move_s.action, move_s.input1, move_s.input2);
+            printf("%s\n", message);
+            print_board(copy);
+            #endif
+           
 
-            /*char message[64];
-            bot_turn_message(message, "BOT", move_s.action, move_s.input1, move_s.input2);
-            printf("%s\n", message);*/
+            
 
             winner = get_winner(copy);
         }
@@ -578,8 +745,15 @@ int random_games(board game, player bot_player_num)
         {
             win_count++;
         }
-
+        #ifdef DEBUG
+        allocated_board--;
+        //printf("allocated=%d\n", allocated_board);
+        #endif
         destroy_game(copy);
+        
+        #ifdef DEBUG
+        printf("win_count=%d\n", win_count);
+        #endif
 
         //printf("\n\n\n\n");
     }

@@ -123,7 +123,8 @@ typedef enum players_e player;
  */
 #define NB_PLAYERS 2
 
-#define RANDOM_FIRST_PLAYER 1
+#define RANDOM 0
+#define FIRST_PLAYER 2
 
 /**@{
  * \name Game creation/deletion functionalities.
@@ -285,7 +286,9 @@ board load_game(char * filename);
  **/
 void save_game(board game, char * filename);
 
-
+#ifdef DEBUG
+int board_size();
+#endif
 
 #endif /*_BOARD_H_*/
 

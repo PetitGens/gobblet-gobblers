@@ -11,7 +11,7 @@
 
 int main()
 {
-	srand((unsigned int)time(NULL));
+	//srand((unsigned int)time(NULL));
 
 	main_menu();
 

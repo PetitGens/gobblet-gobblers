@@ -339,7 +339,7 @@ int place(board game)
 	
 	int dest_line = -1, dest_col = -1;
 	
-	printf("Please enter the destination place as 'XY',");
+	printf("Please enter the destination place as 'XY', ");
 	printf("where X is the line and Y is the column :\n>");
 	input_position(&dest_line, &dest_col);
 	
