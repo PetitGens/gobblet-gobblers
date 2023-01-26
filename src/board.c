@@ -380,7 +380,7 @@ board load_game(char * filename)
 			}
 
 			game->current_player *= 10;
-			game->current_player += input - '0';
+			game->current_player += (unsigned int)input - '0';
 		}
 	} while(input != '\n');
 
@@ -437,7 +437,7 @@ board load_game(char * filename)
 					}
 
 					holder *= 10;
-					holder += input - '0';
+					holder += (unsigned int)input - '0';
 				}
 			} while(input != ',' && input != 'v' && input != '\n');
 
@@ -459,7 +459,7 @@ board load_game(char * filename)
 						}
 
 						piece_size *= 10;
-						piece_size += input - '0';
+						piece_size += (unsigned int)input - '0';
 					}
 				} while(input != ';' && input != '\n');
 

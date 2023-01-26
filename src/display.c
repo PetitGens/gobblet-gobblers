@@ -7,7 +7,9 @@
 
 void clear_screen()
 {
+	#ifndef DEBUG
 	printf("\033[H\033[2J");
+	#endif
 }
 
 void change_output_color(enum color_e color)
@@ -135,7 +137,7 @@ void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings)
 
 void format_name_for_leaderboard(char name[NAME_MAX_LENGTH])
 {
-	for (int i = strlen(name); i < NAME_MAX_LENGTH - 1; i++)
+	for (int i = (int)strlen(name); i < NAME_MAX_LENGTH - 1; i++)
 	{
 		name[i] = ' ';
 	}
@@ -145,8 +147,8 @@ void format_name_for_leaderboard(char name[NAME_MAX_LENGTH])
 void bot_turn_message(char message[], char bot_name[],enum action_e action, int input1[2], int input2[2])
 {
 	char dest[3];
-	dest[0] = 'A' + input2[0]; 
-	dest[1] = '1' + input2[1];
+	dest[0] = 'A' + (char)input2[0]; 
+	dest[1] = '1' + (char)input2[1];
 	dest[2] = '\0';
 
 
@@ -173,8 +175,8 @@ void bot_turn_message(char message[], char bot_name[],enum action_e action, int 
 	else if (action == MOVE)
 	{
 		char src[3];
-		src[0] = 'A' + input1[0]; 
-		src[1] = '1' + input1[1];
+		src[0] = 'A' + (char)input1[0]; 
+		src[1] = '1' + (char)input1[1];
 		src[2] = '\0';
 
 		sprintf(message, "%s moved a piece from %s to %s.", bot_name, src, dest);
