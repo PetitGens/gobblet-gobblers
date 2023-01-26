@@ -6,13 +6,8 @@
 #include "../headers/display.h"
 #include "../headers/input.h"
 
-#define RECURSIVE_LIMIT 2
+#define RECURSIVE_LIMIT 3
 #define RANDOM_GAMES_NUMBER 100
-
-/*typedef struct {
-    moves_tree_s* branches [108];
-    int size;
-} moves_tree_s;*/
 
 void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[])
 {
@@ -66,17 +61,23 @@ void bot_medium(board game, player bot_player_num, enum action_e* p_action, int 
 {
     if (try_to_win(game, bot_player_num, p_action, input1, input2) == 1)
     {
-        //printf("je peux gagner\n");
+		#ifdef DEBUG
+        printf("je peux gagner\n");
+        #endif
         return;
     }
 
     if (try_to_block_oppo(game, bot_player_num) == 0)
     {
         random_action(game, bot_player_num, p_action, input1, input2);
-        //printf("je ne peux pas bloquer\n");
+        #ifdef DEBUG
+        printf("je ne peux pas bloquer\n");
+        #endif
         return;
     }
-    //printf("je peux jouer pour empécher la victoire de l'adversaire\n");
+    #ifdef DEBUG
+    printf("je peux jouer pour empécher la victoire de l'adversaire\n");
+    #endif
 
     enum return_code ret = OK;
     int oppo_can_win = 1;
@@ -106,7 +107,15 @@ void bot_medium(board game, player bot_player_num, enum action_e* p_action, int 
 void bot_hard(board game, player bot_player_num, enum action_e* p_action, int input1[2], int input2[2])
 {
     movement_s the_move;
-    printf("%d\n", minimax(game, bot_player_num, 0, &the_move, RANDOM_GAMES_NUMBER));
+    int value = minimax(game, bot_player_num, 0, &the_move, RANDOM_GAMES_NUMBER);
+    printf("%d\n", value);
+    
+    if (value == 0)
+    {
+		bot_medium(game, bot_player_num, p_action, input1, input2);
+		return;
+	}
+    
     *p_action = the_move.action;
     input1[0] = the_move.input1[0];
     input2[1] = the_move.input1[1];

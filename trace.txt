@@ -1,0 +1,482 @@
+     1     2     3
+   _________________
+  |     |     |     |
+A |     |     |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |     |     |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |     |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 2
+
+Bot's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 2
+
+It's Bot's turn.
+Bot is thinking...
+53
+     1     2     3
+   _________________
+  |     |     |     |
+A |     |     |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |     |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |     |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 2
+
+Bot's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 1
+
+It's Bot's turn.
+Bot is thinking...
+
+Bot placed a large piece at B2.
+Press enter to continue...
+     1     2     3
+   _________________
+  |     |     |     |
+A |     |     |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |     |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |     |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 2
+
+Bot's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 1
+
+PetitGens, it's your turn !
+
+You can restart your action at any time by pressing entering 'r'.
+Enter 'q' if you want to quit (you'll be asked if you want to save the current game).
+
+Please enter '1' for a small piece, '2' for a medium piece or '3' for a large piece :
+>3
+Please enter the destination place as 'XY',where X is the line and Y is the column :
+>a1
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |     |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |     |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |     |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 1
+
+Bot's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 1
+
+It's Bot's turn.
+Bot is thinking...
+53
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |     |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |     |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 1
+
+Bot's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+
+Bot placed a large piece at A2.
+Press enter to continue...
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |     |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |     |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 1
+
+Bot's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 0
+
+PetitGens, it's your turn !
+
+You can restart your action at any time by pressing entering 'r'.
+Enter 'q' if you want to quit (you'll be asked if you want to save the current game).
+
+Enter 'p' to place a piece or 'm' to move a piece :
+>p
+Please enter '1' for a small piece, '2' for a medium piece or '3' for a large piece :
+>2
+Please enter the destination place as 'XY',where X is the line and Y is the column :
+>c2
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |     |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 1
+
+Bot's remaining piece(s) :
+×: 2 ; X: 2 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+47
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  X  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 1
+
+Bot's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+
+Bot placed a medium piece at B1.
+Press enter to continue...
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  X  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 1
+
+Bot's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+PetitGens, it's your turn !
+
+You can restart your action at any time by pressing entering 'r'.
+Enter 'q' if you want to quit (you'll be asked if you want to save the current game).
+
+Enter 'p' to place a piece or 'm' to move a piece :
+>p
+Please enter '1' for a small piece, '2' for a medium piece or '3' for a large piece :
+>3
+Please enter the destination place as 'XY',where X is the line and Y is the column :
+>b1
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |     |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+41
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 2 ; X: 0 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+
+Bot placed a medium piece at C1.
+Press enter to continue...
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 2 ; X: 0 ; ╳: 0
+
+PetitGens, it's your turn !
+
+You can restart your action at any time by pressing entering 'r'.
+Enter 'q' if you want to quit (you'll be asked if you want to save the current game).
+
+Enter 'p' to place a piece or 'm' to move a piece :
+>m
+Please enter the position of the piece you want to moveas 'XY', where X is the line and Y is the column :
+>a1
+Please enter the destination place as 'XY',where X is the line and Y is the column :
+>a3
+     1     2     3
+   _________________
+  |     |     |     |
+A |     |  ╳  |  ╳  |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |     |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 2 ; X: 0 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+101
+     1     2     3
+   _________________
+  |     |     |     |
+A |     |  ╳  |  ╳  |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |  ×  |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 1 ; X: 0 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+
+Bot placed a small piece at B3.
+Press enter to continue...
+     1     2     3
+   _________________
+  |     |     |     |
+A |     |  ╳  |  ╳  |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |  ×  |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 1 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 1 ; X: 0 ; ╳: 0
+
+PetitGens, it's your turn !
+
+You can restart your action at any time by pressing entering 'r'.
+Enter 'q' if you want to quit (you'll be asked if you want to save the current game).
+
+Enter 'p' to place a piece or 'm' to move a piece :
+>p
+Please enter '1' for a small piece, '2' for a medium piece or '3' for a large piece :
+>2
+Please enter the destination place as 'XY',where X is the line and Y is the column :
+>b3
+     1     2     3
+   _________________
+  |     |     |     |
+A |     |  ╳  |  ╳  |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |  X  |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 0 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 1 ; X: 0 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+101
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ×  |  ╳  |  ╳  |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |  X  |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 0 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 0 ; X: 0 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+
+Bot placed a small piece at A1.
+Press enter to continue...
+     1     2     3
+   _________________
+  |     |     |     |
+A |  ×  |  ╳  |  ╳  |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |  X  |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |  X  |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 0 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 0 ; X: 0 ; ╳: 0
+
+PetitGens, it's your turn !
+
+You can restart your action at any time by pressing entering 'r'.
+Enter 'q' if you want to quit (you'll be asked if you want to save the current game).
+
+Enter 'p' to place a piece or 'm' to move a piece :
+>m
+Please enter the position of the piece you want to moveas 'XY', where X is the line and Y is the column :
+>c2
+Please enter the destination place as 'XY',where X is the line and Y is the column :
+>a1
+     1     2     3
+   _________________
+  |     |     |     |
+A |  X  |  ╳  |  ╳  |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |  X  |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |     |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 0 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 0 ; X: 0 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+-1
+error, invalid bot action, action = 1197699680
+     1     2     3
+   _________________
+  |     |     |     |
+A |  X  |  ╳  |  ╳  |  
+  |_____|_____|_____|
+  |     |     |     |
+B |  ╳  |  ╳  |  X  |  
+  |_____|_____|_____|
+  |     |     |     |
+C |  X  |     |     |  
+  |_____|_____|_____|
+
+PetitGens's remaining piece(s) :
+×: 2 ; X: 0 ; ╳: 0
+
+Bot's remaining piece(s) :
+×: 0 ; X: 0 ; ╳: 0
+
+It's Bot's turn.
+Bot is thinking...
+
+
+Press enter to continue...
+
