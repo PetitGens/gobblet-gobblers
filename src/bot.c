@@ -368,7 +368,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
     {
         enum possible_e possible = determine_possible_action(game, bot_player_num);
 
-        int max = -1;
+        int max = -100;
 
         for (enum action_e action = 1; action <= 2; action++)
         {
@@ -424,7 +424,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                     allocated_board--;
                                     #endif
                                     destroy_game(copy);
-                                    return RANDOM_GAMES_NUMBER + 1;
+                                    return RANDOM_GAMES_NUMBER + 2;
                                 }
 
                                 if (value > max)
@@ -494,7 +494,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                         allocated_board--;
                                         #endif
                                         destroy_game(copy);
-                                        return RANDOM_GAMES_NUMBER;
+                                        return RANDOM_GAMES_NUMBER + 1;
                                     }
                                     if (depth > 3 && value > great_great_uncle)
                                     {
@@ -502,7 +502,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                         allocated_board--;
                                         #endif
                                         destroy_game(copy);
-                                        return RANDOM_GAMES_NUMBER + 1;
+                                        return RANDOM_GAMES_NUMBER + 2;
                                     }
 
                                     if (value > max)
@@ -535,7 +535,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
 
     enum possible_e possible = determine_possible_action(game, bot_player_num);
 
-    int min = RANDOM_GAMES_NUMBER + 1;
+    int min = 2*RANDOM_GAMES_NUMBER;
 
     for (enum action_e action = 1; action <= 2; action++)
     {
@@ -583,7 +583,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                 allocated_board--;
                                 #endif
                                 destroy_game(copy);
-                                return 0;
+                                return -1;
                             }
                             if (depth > 3 && value < great_great_uncle)
                             {
@@ -591,7 +591,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                 allocated_board--;
                                 #endif
                                 destroy_game(copy);
-                                return 0;
+                                return -2;
                             }
 
                             if (value < min)
@@ -661,7 +661,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                     allocated_board--;
                                     #endif
                                     destroy_game(copy);
-                                    return 0;
+                                    return -1;
                                 }
                                 if (depth > 3 && value < great_great_uncle)
                                 {
@@ -669,7 +669,7 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                     allocated_board--;
                                     #endif
                                     destroy_game(copy);
-                                    return 0;
+                                    return -2;
                                 }
 
                                 if (value < min)
