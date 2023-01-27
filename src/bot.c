@@ -119,7 +119,9 @@ void bot_hard(board game, player bot_player_num, enum action_e* p_action, int in
 {
     movement_s the_move;
     int value = minimax(game, bot_player_num, 0, &the_move, 0, 0, 0);
+    #ifdef DEBUG
     printf("%d\n", value);
+    #endif
     
     if (value == 0)
     {
@@ -398,13 +400,13 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                 {
                                     
                                     #ifdef DEBUG
-                                    print_board(copy);
-                                    printf("recursive minimax call ; depth=%d, action=place, size=%d, line=%d; col=%d\n", depth, s, line, col);
+                                    //print_board(copy);
+                                    //printf("recursive minimax call ; depth=%d, action=place, size=%d, line=%d; col=%d\n", depth, s, line, col);
                                     //printf("allocated=%d\n", allocated_board);
                                     #endif
                                     value = minimax(copy, bot_player_num, depth + 1, p_movement, max, uncle, great_uncle);
                                     #ifdef DEBUG
-                                    printf("out of minimax\n");
+                                    //printf("out of minimax\n");
                                     #endif
                                 }
 
@@ -475,14 +477,14 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                     else
                                     {
                                         #ifdef DEBUG
-                                        print_board(copy);
-                                        printf("recursive minimax call ; depth=%d, action=move, src_line=%d, src_col=%d, dest_line=%d; dest_col=%d\n",
-                                            depth, src_line, src_col, dest_line, dest_col);
+                                        //print_board(copy);
+                                        /*printf("recursive minimax call ; depth=%d, action=move, src_line=%d, src_col=%d, dest_line=%d; dest_col=%d\n",
+                                            depth, src_line, src_col, dest_line, dest_col);*/
                                         //printf("allocated=%d\n", allocated_board);
                                         #endif
                                         value = minimax(copy, bot_player_num, depth + 1, p_movement, max, uncle, great_uncle);
                                         #ifdef DEBUG
-                                        printf("out of minimax\n");
+                                        //printf("out of minimax\n");
                                         #endif
                                     }
 
@@ -564,13 +566,13 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                             else
                             {
                                 #ifdef DEBUG
-                                print_board(copy);
-                                printf("recursive minimax call ; depth=%d, action=place, size=%d, line=%d; col=%d\n", depth, s, line, col);
+                                //print_board(copy);
+                                //printf("recursive minimax call ; depth=%d, action=place, size=%d, line=%d; col=%d\n", depth, s, line, col);
                                 //printf("allocated=%d\n", allocated_board);
                                 #endif
                                 value = minimax(copy, bot_player_num, depth + 1, p_movement, min, uncle, great_uncle);
                                 #ifdef DEBUG
-                                printf("out of minimax\n");
+                                //printf("out of minimax\n");
                                 #endif
 
                             }
@@ -642,14 +644,14 @@ int minimax(board game, player bot_player_num, int depth, movement_s* p_movement
                                 else
                                 {
                                     #ifdef DEBUG
-                                    print_board(copy);
-                                    printf("recursive minimax call ; depth=%d, action=move, src_line=%d, src_col=%d, dest_line=%d; dest_col=%d\n",
-                                        depth, src_line, src_col, dest_line, dest_col);
+                                    //print_board(copy);
+                                    //printf("recursive minimax call ; depth=%d, action=move, src_line=%d, src_col=%d, dest_line=%d; dest_col=%d\n",
+                                    //    depth, src_line, src_col, dest_line, dest_col);
                                     //printf("allocated=%d\n", allocated_board);
                                     #endif
                                     value = minimax(copy, bot_player_num, depth + 1, p_movement, min, uncle, great_uncle);
                                     #ifdef DEBUG
-                                    printf("out of minimax\n");
+                                    //printf("out of minimax\n");
                                     #endif
                                 }
 
@@ -727,12 +729,12 @@ int random_games(board game, player bot_player_num)
             }
 
             #ifdef DEBUG
-            char message[64];
+            /*char message[64];
             char player_name[16];
             sprintf(player_name, "Player%d", next_player(copy) % 2 + 1);
             bot_turn_message(message, player_name, move_s.action, move_s.input1, move_s.input2);
-            printf("%s\n", message);
-            print_board(copy);
+            printf("%s\n", message);*/
+            //print_board(copy);
             #endif
            
 
@@ -752,7 +754,7 @@ int random_games(board game, player bot_player_num)
         destroy_game(copy);
         
         #ifdef DEBUG
-        printf("win_count=%d\n", win_count);
+        //printf("win_count=%d\n", win_count);
         #endif
 
         //printf("\n\n\n\n");
