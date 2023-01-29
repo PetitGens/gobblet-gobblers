@@ -6,7 +6,7 @@
 #include "../headers/display.h"
 #include "../headers/input.h"
 
-#define RECURSIVE_LIMIT 2
+#define RECURSIVE_LIMIT 3
 #define RANDOM_GAMES_NUMBER 50
 
 #ifdef DEBUG
@@ -131,8 +131,10 @@ void bot_hard(board game, player bot_player_num, enum action_e* p_action, int in
 	}
     else if (value == RANDOM_GAMES_NUMBER)
     {
-        try_to_win(game, bot_player_num, p_action, input1, input2);
-        return;
+        if (try_to_win(game, bot_player_num, p_action, input1, input2) == 1)
+        {
+            return;
+        }
     }
     
     *p_action = the_move.action;
