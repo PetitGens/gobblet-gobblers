@@ -9,6 +9,8 @@
 #include "../headers/input.h"
 #include "../headers/rating.h"
 
+#define BOT_PLAYER PLAYER_2
+
 void pvp_loop(board game)
 {
     clear_screen();
@@ -82,7 +84,7 @@ void pvb_loop(board game, bot_difficulty_e bot_dif)
 
     while(play_again)
     {
-        if (next_player(game) == PLAYER_1){
+        if (next_player(game) != BOT_PLAYER){
             if (human_turn(game, player1_name, player2_name) == 1)
                 play_again = 0;
         }
