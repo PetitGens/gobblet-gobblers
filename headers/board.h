@@ -123,6 +123,9 @@ typedef enum players_e player;
  */
 #define NB_PLAYERS 2
 
+#define RANDOM 0
+#define FIRST_PLAYER RANDOM
+
 /**@{
  * \name Game creation/deletion functionalities.
  */
@@ -218,6 +221,9 @@ int get_nb_piece_in_house(board game, player checked_player, size piece_size);
  * \name Playing functionalities
  */
 
+enum return_code is_placement_possible(board game, size piece_size, int line, int column);
+enum return_code is_movement_possible(board game, int source_line, int source_column, int target_line, int target_column);
+
 /**
  * @brief Adds a piece on the board if possible.
  *
@@ -280,7 +286,9 @@ board load_game(char * filename);
  **/
 void save_game(board game, char * filename);
 
-
+#ifdef DEBUG
+int board_size();
+#endif
 
 #endif /*_BOARD_H_*/
 

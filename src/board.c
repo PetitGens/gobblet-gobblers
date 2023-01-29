@@ -52,7 +52,15 @@ board new_game(){
 		new_board->squares[i] = current_square;
 	}
 
-	new_board->current_player = rand() % NB_PLAYERS + 1;
+	if (FIRST_PLAYER == RANDOM)
+	{
+		new_board->current_player = rand() % NB_PLAYERS + 1;
+	}
+	else
+	{
+		new_board->current_player = FIRST_PLAYER;
+	}
+		
 
 	return new_board;
 }
@@ -260,7 +268,7 @@ void switch_player(board game)
 	game->current_player = game->current_player % NB_PLAYERS + 1;
 }
 
-enum return_code place_piece(board game, size piece_size, int line, int column)
+enum return_code is_placement_possible(board game, size piece_size, int line, int column)
 {
 	if (
 		line < 0
@@ -278,6 +286,16 @@ enum return_code place_piece(board game, size piece_size, int line, int column)
 	if ( piece_size <= get_piece_size(game, line, column) )
 		return TARGET;
 
+	return OK;
+}
+
+enum return_code place_piece(board game, size piece_size, int line, int column)
+{
+	enum return_code return_code = is_placement_possible(game, piece_size, line, column);
+
+	if (return_code != OK)
+		return return_code;
+
 	int square_nb_pieces = game->squares[line * DIMENSIONS + column].piece_number;
 	piece piece_to_place = {piece_size, next_player(game)};
 
@@ -291,7 +309,7 @@ enum return_code place_piece(board game, size piece_size, int line, int column)
 	return OK;
 }
 
-enum return_code move_piece(board game, int source_line, int source_column, int target_line, int target_column)
+enum return_code is_movement_possible(board game, int source_line, int source_column, int target_line, int target_column)
 {
 	if (
 		source_line < 0
@@ -312,6 +330,16 @@ enum return_code move_piece(board game, int source_line, int source_column, int 
 	
 	if ( get_piece_size(game, source_line, source_column) <= get_piece_size(game, target_line, target_column) )
 		return TARGET;
+
+	return OK;
+}
+
+enum return_code move_piece(board game, int source_line, int source_column, int target_line, int target_column)
+{
+	enum return_code return_code = is_movement_possible(game, source_line, source_column, target_line, target_column);
+
+	if (return_code != OK)
+		return return_code;
 
 	int target_nb_pieces = game->squares[target_line * DIMENSIONS + target_column].piece_number;
 	piece piece_to_place = {get_piece_size(game, source_line, source_column), next_player(game)};
@@ -356,7 +384,7 @@ board load_game(char * filename)
 			}
 
 			game->current_player *= 10;
-			game->current_player += input - '0';
+			game->current_player += (unsigned int)input - '0';
 		}
 	} while(input != '\n');
 
@@ -413,7 +441,7 @@ board load_game(char * filename)
 					}
 
 					holder *= 10;
-					holder += input - '0';
+					holder += (unsigned int)input - '0';
 				}
 			} while(input != ',' && input != 'v' && input != '\n');
 
@@ -435,7 +463,7 @@ board load_game(char * filename)
 						}
 
 						piece_size *= 10;
-						piece_size += input - '0';
+						piece_size += (unsigned int)input - '0';
 					}
 				} while(input != ';' && input != '\n');
 
@@ -499,3 +527,9 @@ void save_game(board game, char * filename)
 
 	fclose(stream);
 }
+#ifdef DEBUG
+int board_size()
+{
+	return (int)sizeof(struct board_s);
+}
+#endif

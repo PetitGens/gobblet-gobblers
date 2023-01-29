@@ -12,12 +12,18 @@
  * 
 */
 
-typedef enum {UKNOWN, HELP, PVP, LOAD_PVP, QUIT, LEADERBOARD} menu_choice;
+typedef enum {UKNOWN, HELP, PVP, LOAD_PVP, PVB, LOAD_PVB, BVB,  LOAD_BVB, QUIT, LEADERBOARD} menu_choice;
 
 void main_menu();
 
 void main_help();
 
+void menu_start_pvb();
+
 void leaderboard();
+
+void menu_load_pvb();
+
+void menu_start_bvb();
 
 #endif //__MENU_H__

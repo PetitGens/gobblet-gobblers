@@ -2,11 +2,14 @@
 
 #include "../headers/display.h"
 #include "../headers/board.h"
+#include "../headers/input.h"
 #include <string.h>
 
 void clear_screen()
 {
+	#ifndef DEBUG
 	printf("\033[H\033[2J");
+	#endif
 }
 
 void change_output_color(enum color_e color)
@@ -104,12 +107,12 @@ void insert_piece(char piece[], board game, int line, int col)
 
 void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings)
 {
-	int width = 10 + 4 + NAME_MAX_LENGTH + 11;
+	int width = 10 + 4 + NAME_MAX_LENGTH + 11; // Total width of the leaderboard as it is displayed
 	for (int i = 0; i < width; i++)
 		printf("-");
 	printf("\n");
 
-	printf("|  RANG  |  NAME");
+	printf("|  RANK  |  NAME");
 	for (int i = 0; i < NAME_MAX_LENGTH - 3; i++)
 		printf(" ");
 	printf("|  SCORE  |\n");
@@ -134,9 +137,51 @@ void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings)
 
 void format_name_for_leaderboard(char name[NAME_MAX_LENGTH])
 {
-	for (int i = strlen(name); i < NAME_MAX_LENGTH - 1; i++)
+	for (int i = (int)strlen(name); i < NAME_MAX_LENGTH - 1; i++)
 	{
 		name[i] = ' ';
 	}
 	name[NAME_MAX_LENGTH - 1] = '\0';
+}
+
+void bot_turn_message(char message[], char bot_name[],enum action_e action, int input1[2], int input2[2])
+{
+	char dest[3];
+	dest[0] = (char)('A' + input2[0]); 
+	dest[1] = (char)('1' + input2[1]);
+	dest[2] = '\0';
+
+
+	if (action == PLACE)
+	{
+		char piece_size[32] = "";
+		switch (input1[0])
+		{
+			case SMALL:
+				strcpy(piece_size, "small");
+				break;
+			case MEDIUM:
+				strcpy(piece_size, "medium");
+				break;
+			case LARGE:
+				strcpy(piece_size, "large");
+				break;
+			default:
+				strcpy(piece_size, "[invalid size]");
+		}
+
+		sprintf(message, "%s placed a %s piece at %s.", bot_name, piece_size, dest);
+	}
+	else if (action == MOVE)
+	{
+		char src[3];
+		src[0] = (char)('A' + input1[0]); 
+		src[1] = (char)('1' + input1[1]);
+		src[2] = '\0';
+
+		sprintf(message, "%s moved a piece from %s to %s.", bot_name, src, dest);
+	}
+	else{
+		strcpy(message, "error, invalid action\n");
+	}
 }

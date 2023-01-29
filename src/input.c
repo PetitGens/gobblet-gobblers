@@ -12,6 +12,12 @@ void input_players_names(char name1[], char name2[])
 	fgets(name2, NAME_MAX_LENGTH - 1, stdin);
 }
 
+void input_single_player_name(char name[])
+{
+	printf("Please enter the first player's name.\n>");
+	fgets(name, NAME_MAX_LENGTH - 1, stdin);
+}
+
 void delete_carriage_return (char string[])
 {
 	int i = 0;
@@ -156,6 +162,18 @@ menu_choice input_main_menu()
 	else if (strcmp(choice, "load-pvp") == 0)
 		return LOAD_PVP;
 
+	else if (strcmp(choice, "pvb") == 0)
+		return PVB;
+
+	else if (strcmp(choice, "load-pvb") == 0)
+		return LOAD_PVB;
+
+	else if (strcmp(choice, "bvb") == 0)
+		return BVB;
+
+	else if (strcmp(choice, "load-bvb") == 0)
+		return LOAD_BVB;
+
 	else if (strcmp(choice, "quit") == 0)
 		return QUIT;
 
@@ -173,4 +191,22 @@ void input_filename(char filename[FILENAME_MAX_LENGTH])
 		fgets(filename, FILENAME_MAX_LENGTH - 1, stdin);
     	delete_carriage_return(filename);
 	} while(filename[0] == '\0');
+}
+
+bot_difficulty_e input_bot_difficulty()
+{
+	char choice = 0;
+	scanf("%c", &choice);
+		
+	char buffer;
+	do
+	{
+		scanf("%c", &buffer);
+	} while(buffer != '\n');
+
+	if (choice == '1') return EASY;
+	else if (choice == '2') return MEDIUM_DIFF;
+	else if (choice == '3') return HARD;
+
+	return -1;
 }

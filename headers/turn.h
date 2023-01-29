@@ -3,6 +3,7 @@
 
 #include "board.h"
 #include "rating.h"
+#include "bot.h"
 
 /**
  * @file turn.h
@@ -32,7 +33,9 @@ enum possible_e {ANY, PLACE_ONLY, MOVE_ONLY};
  * 
  * @return returns 1 only if the players want to exit the game, else returns 0
  */
-int turn(board game, char player1_name[], char player2_name[]);
+int human_turn(board game, char player1_name[], char player2_name[]);
+
+void bot_turn(board game, char player1_name[], char player2_name[], bot_difficulty_e bot_dif);
 
 /**
  * @brief displays an message to warn the player he made a mistake
@@ -56,7 +59,9 @@ void error_message (const char message[]);
  * @param player2_name 
  * @return int -> returns 1 if no one won or if the players want to play again ; else returns 0
  */
-int declare_winner(board* p_game, rating ratings[2]);
+int declare_winner_rating(board* p_game, rating ratings[2]);
+
+int declare_winner_no_rating(board* p_game, char player1_name[], char player2_name[]);
 
 /**
  * @brief check if the current player can place, move or do any of the two actions

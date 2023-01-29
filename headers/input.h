@@ -3,6 +3,8 @@
 
 #include "board.h"
 #include "menu.h"
+#include "bot.h"
+#include "action.h"
 
 #define NAME_MAX_LENGTH 30
 #define CHOICE_MAX_LENGTH 30
@@ -24,6 +26,7 @@
  */
 void input_players_names(char name1[], char name2[]);
 
+void input_single_player_name(char name[]);
 
 /**
  * @brief delete the first carriage in the end of a char string
@@ -33,13 +36,6 @@ void input_players_names(char name1[], char name2[]);
  * @param string
 */
 void delete_carriage_return (char string[]);
-
-/**
- * @brief action chosen by the player
- * 
- * ERROR stands for an invalid input from the player
-*/
-enum action_e {ERROR, PLACE, MOVE, EXIT};
 
 /**
  * @brief asks to the player the action he wants to do
@@ -80,5 +76,7 @@ int input_yes_no();
 menu_choice input_main_menu();
 
 void input_filename(char filename[FILENAME_MAX_LENGTH]);
+
+bot_difficulty_e input_bot_difficulty();
 
 #endif //INPUT_H
