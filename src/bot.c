@@ -11,7 +11,6 @@
 
 #ifdef DEBUG
 int allocated_board = 0;
-int print = 0;
 #endif
 
 void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[])

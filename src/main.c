@@ -11,7 +11,9 @@
 
 int main()
 {
-	//srand((unsigned int)time(NULL));
+	#ifndef DEBUG
+	srand((unsigned int)time(NULL));
+	#endif
 
 	main_menu();
 

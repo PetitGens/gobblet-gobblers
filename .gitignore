@@ -1,5 +1,6 @@
 # Custom Files
 *.sav
+gobblet
 
 # Prerequisites
 *.d

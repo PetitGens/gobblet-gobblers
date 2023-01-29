@@ -11,6 +11,10 @@
 
 #define BOT_PLAYER PLAYER_2
 
+#ifdef DEBUG
+#define BOT_PLAYER PLAYER_2
+#endif
+
 void pvp_loop(board game)
 {
     clear_screen();
