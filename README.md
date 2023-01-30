@@ -76,4 +76,4 @@ In order to quit the current game, press 'Q'. You can then save the game if you 
 
 ### Game saving
 
-You can save games upon exiting, you are then asked for the filename (you can use whatever extension you want, `.sav` is recommanded). Even if the save is a simple text file, it is not supposed to be edited by the user.
+You can save games upon exiting, you are then asked for the filename (you can use whatever extension you want, `.sav` is recommended). Even though the save is a simple text file, it is not supposed to be edited by the user.
