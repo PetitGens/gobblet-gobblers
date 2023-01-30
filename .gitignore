@@ -1,6 +1,7 @@
 # Custom Files
 *.sav
 gobblet
+.vscode
 
 # Prerequisites
 *.d
