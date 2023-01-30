@@ -70,7 +70,7 @@ Else, you will have to play your turn again.
 
 ![error while trying to move a piece](/screenshots/moving_error.png)
 
-#### Quiting
+#### Exiting
 
 In order to quit the current game, press 'Q'. You can then save the game if you want to resume it later (see Game saving section for more details).
 
