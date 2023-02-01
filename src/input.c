@@ -137,10 +137,10 @@ int input_yes_no()
 		scanf("%c", &buffer);
 	} while(buffer != '\n');
 	
-	if (choice == 'y')
+	if (choice == 'y' || choice == 'Y')
 		return 1;
 		
-	if (choice == 'n')
+	if (choice == 'n' || choice == 'N')
 		return 0;
 		
 	return -1;
