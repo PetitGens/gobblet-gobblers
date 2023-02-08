@@ -4,12 +4,12 @@ This program is a digital version of Gobblet Gobblers (a Tic-Tac-Toe like board 
 It was made in C during my IT studies at Caen for a learning project.
 After the end of this project, I continued enhancing the game during my free time.
 
-Currently, the game only has a CLI (Command Line Interface) and is only runnable on Linux, due to the use of colored text that cmd et Powershell from Windows don't offer. 
+Currently, the game only has a CLI (Command Line Interface) and is only runnable on Linux, due to the use of colored text that cmd and Powershell from Windows don't offer. 
 
 ## Rules of the game
 
-The this game's rules are very similar to Tic Tac Toe's, with some additions :
-* Each player has pieces of different sizes : SMALL, MEDIUM and HARD.
+This game's rules are very similar to Tic Tac Toe's, with some additions :
+* Each player has pieces of different sizes : SMALL, MEDIUM and LARGE.
 * The players have limited pieces (2 for each size).
 * A piece can be placed over another if it is strictly bigger.
 * You can place pieces on the board, but you can also move one of your pieces that are already on it.
@@ -20,13 +20,13 @@ If the two players happen to fulfill the winning condition at the same time, the
 
 ## How to launch the game
 
-1 Download the repository as a zip (Code > Download ZIP).
+1. Download the repository as a zip (Code > Download ZIP).
 
-2 Open a terminal in the game folder (right click > "open in terminal" in file explorer).
+2. Open a terminal in the game folder (right click > "open in terminal" in file explorer).
 
-3 Compile the code using `$make` (only for the first time).
+3. Compile the code using `$make` (only for the first time).
 
-4 Launch the game executable : `$./gobblet`.
+4. Launch the game executable : `$./gobblet`.
 
 ## How to play
 
@@ -38,7 +38,7 @@ Upon opening the game, a menu will display letting you choose a game function :
 * `pvp` -> starts a game between two human players
 * `pvb` -> starts a game against a bot player (i.e controlled by the computer)
 * `bvb` -> starts a game between two bot players (not very useful, I used that mainly for debugging)
-* `load-pvp` / load-pvb -> loads a game previously saved (can be a pvp or a pvb game ; see Game saving section for more details)
+* `load-pvp` / `load-pvb` -> loads a game previously saved (can be a pvp or a pvb game ; see Game saving section for more details)
 * `leaderboard` -> displays a leaderboard based on the ELO system ; it is automatically updated after pvp games and stored in a `rating.dat` file.
 * `quit` -> exits the game program
 
