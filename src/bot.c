@@ -327,7 +327,7 @@ int try_to_block_oppo(board game, player bot_player_num)
                 {
                     for (int dest_line = 0; dest_line < 3; dest_line++)
                     {
-                        for (int dest_col = 3; dest_col < 3; dest_col++)
+                        for (int dest_col = 0; dest_col < 3; dest_col++)
                         {
                             #ifdef DEBUG
                             allocated_board++;
