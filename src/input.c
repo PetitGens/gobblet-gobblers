@@ -16,6 +16,7 @@ void input_players_names(char name1[], char name2[])
 
 void input_single_player_name(char name[])
 {
+	printf("Please enter your name.\n>");
 	if (fgets(name, NAME_MAX_LENGTH - 1, stdin) == NULL)
 		printf("Error in name input.\n");
 }
