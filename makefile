@@ -1,7 +1,7 @@
 #cc = gcc
 WARN = -Wall -Werror -Wconversion
 OPTI = -O3
-SDL = -I/usr/include/SDL2 -D_REENTRANT
+SDL = -lSDL2 -I/usr/include/SDL2
 
 ifeq ($(debug), true)
 DEBUGGING = -DDEBUG -g
