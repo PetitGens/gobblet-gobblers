@@ -474,7 +474,10 @@ board load_game(char * filename)
 			else
 			{
 				nb_pieces = 0;
-				fscanf(stream, "%c", &input);
+				if (fscanf(stream, "%c", &input) == EOF)
+				{
+					input ='\n';
+				}
 			}			
 		} while (input != '\n');
 

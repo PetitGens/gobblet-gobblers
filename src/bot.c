@@ -15,7 +15,7 @@ int allocated_board = 0;
 
 void bot_play(board game, player bot_player_num, bot_difficulty_e bot_dif, char bot_name[], char turn_message[])
 {
-    enum action_e action;
+    enum action_e action = ERROR;
     int input1[2];
     int input2[2];
 
