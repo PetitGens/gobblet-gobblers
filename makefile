@@ -1,7 +1,7 @@
 #cc = gcc
 WARN = -Wall -Werror -Wconversion
 OPTI = -O3
-#SDL = `sdl-config --cflags --libs`
+SDL = -I/usr/include/SDL2 -D_REENTRANT
 
 ifeq ($(debug), true)
 DEBUGGING = -DDEBUG -g
