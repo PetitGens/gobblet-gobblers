@@ -3,7 +3,7 @@ WARN = -Wall -Werror -Wconversion
 OPTI = -O3
 #SDL = `sdl-config --cflags --libs`
 
-ifeq ($(DEBUG), true)
+ifeq ($(debug), true)
 DEBUGGING = -DDEBUG -g
 else
 DEBUGGING = -DNDEBUG
