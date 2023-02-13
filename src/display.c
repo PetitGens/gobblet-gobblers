@@ -3,6 +3,7 @@
 #include "../headers/display.h"
 #include "../headers/board.h"
 #include "../headers/input.h"
+#include "../headers/text.h"
 #include <string.h>
 
 void clear_screen()
@@ -112,7 +113,11 @@ void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings)
 		printf("-");
 	printf("\n");
 
+	#if LANGUAGE == ENGLISH
 	printf("|  RANK  |  NAME");
+	#elif LANGUAGE == FRENCH
+	printf("|  RANG  |  NOM ");
+	#endif
 	for (int i = 0; i < NAME_MAX_LENGTH - 3; i++)
 		printf(" ");
 	printf("|  SCORE  |\n");
@@ -158,19 +163,19 @@ void bot_turn_message(char message[], char bot_name[],enum action_e action, int 
 		switch (input1[0])
 		{
 			case SMALL:
-				strcpy(piece_size, "small");
+				strcpy(piece_size, SIZE_1);
 				break;
 			case MEDIUM:
-				strcpy(piece_size, "medium");
+				strcpy(piece_size, SIZE_2);
 				break;
 			case LARGE:
-				strcpy(piece_size, "large");
+				strcpy(piece_size, SIZE_3);
 				break;
 			default:
 				strcpy(piece_size, "[invalid size]");
 		}
 
-		sprintf(message, "%s placed a %s piece at %s.", bot_name, piece_size, dest);
+		sprintf(message, BOT_PLACING_MSG, bot_name, piece_size, dest);
 	}
 	else if (action == MOVE)
 	{
@@ -179,7 +184,7 @@ void bot_turn_message(char message[], char bot_name[],enum action_e action, int 
 		src[1] = (char)('1' + input1[1]);
 		src[2] = '\0';
 
-		sprintf(message, "%s moved a piece from %s to %s.", bot_name, src, dest);
+		sprintf(message, BOT_MOVING_MSG, bot_name, src, dest);
 	}
 	else{
 		strcpy(message, "error, invalid action\n");

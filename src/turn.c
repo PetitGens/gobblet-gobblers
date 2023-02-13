@@ -4,6 +4,7 @@
 #include "../headers/display.h"
 #include "../headers/board.h"
 #include "../headers/input.h"
+#include "../headers/text.h"
 
 int human_turn(board game, char player1_name[], char player2_name[])
 {	
@@ -16,7 +17,7 @@ int human_turn(board game, char player1_name[], char player2_name[])
 		
 		//prints player1's remaining pieces
 		change_output_color(BLUE);
-		printf("%s's remaining piece(s) :\n", player1_name);
+		printf(REMAINING, player1_name);
 		printf ("×: %d ; X: %d ; ╳: %d\n\n",
 		get_nb_piece_in_house(game, PLAYER_1, SMALL),
 		get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
@@ -24,7 +25,7 @@ int human_turn(board game, char player1_name[], char player2_name[])
 		
 		//prints player2's remaining pieces
 		change_output_color(YELLOW);
-		printf("%s's remaining piece(s) :\n", player2_name);
+		printf(REMAINING, player2_name);
 		printf ("×: %d ; X: %d ; ╳: %d\n\n",
 		get_nb_piece_in_house(game, PLAYER_2, SMALL),
 		get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
@@ -38,18 +39,18 @@ int human_turn(board game, char player1_name[], char player2_name[])
 		if (current_player == PLAYER_1)
 		{
 			change_output_color(BLUE);
-			printf("%s, it's your turn !\n\n", player1_name);
+			printf(YOUR_TURN, player1_name);
 			reset_output_color();
 		}
 		else
 		{
 			change_output_color(YELLOW);
-			printf("%s, it's your turn !\n\n", player2_name);
+			printf(YOUR_TURN, player2_name);
 			reset_output_color();
 		}
 
-		printf("You can restart your action at any time by pressing entering 'r'.\n");
-		printf("Enter 'q' if you want to quit (you'll be asked if you want to save the current game).\n\n");
+		printf(RESTART_INDICATION);
+		printf(QUIT_INDICATION);
 		
 		//determines the possible actions for the current player
 		enum possible_e possible_action = determine_possible_action(game,
@@ -61,11 +62,11 @@ int human_turn(board game, char player1_name[], char player2_name[])
 		if (possible_action == ANY)
 		{
 			//action choice
-			printf("Enter 'p' to place a piece or 'm' to move a piece :\n>");
+			printf(ACTION_INPUT_PROMPT);
 			action = input_place_move();
 			if (action == ERROR)
 			{
-				error_message("Please enter 'm' or 'p' !");
+				error_message(ACTION_INPUT_ERROR);
 				continue;
 			}
 			else if (action == EXIT)
@@ -91,8 +92,8 @@ int human_turn(board game, char player1_name[], char player2_name[])
 				not_valid = 0;
 			else if (action_return == 2)
 			{
-				printf("Action cancelled.\n");
-				printf("Press return to continue...");
+				printf(CANCELLED);
+				printf(PAUSE);
 				getchar();
 				continue;
 			}
@@ -109,8 +110,8 @@ int human_turn(board game, char player1_name[], char player2_name[])
 				not_valid = 0;
 			else if (action_return == 2)
 			{
-				printf("Action cancelled.\n");
-				printf("Press return to continue...");
+				printf(CANCELLED);
+				printf(PAUSE);
 				getchar();
 				continue;
 			}
@@ -132,7 +133,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	
 	//prints player1's remaining pieces
 	change_output_color(BLUE);
-	printf("%s's remaining piece(s) :\n", player1_name);
+	printf(REMAINING, player1_name);
 	printf ("×: %d ; X: %d ; ╳: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_1, SMALL),
 	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
@@ -140,7 +141,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	
 	//prints player2's remaining pieces
 	change_output_color(YELLOW);
-	printf("%s's remaining piece(s) :\n", player2_name);
+	printf(REMAINING, player2_name);
 	printf ("×: %d ; X: %d ; ╳: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_2, SMALL),
 	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
@@ -156,7 +157,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	if (current_player == PLAYER_1)
 	{
 		change_output_color(BLUE);
-		printf("It's %s's turn.\n%s is thinking...\n", player1_name, player1_name);
+		printf(BOT_THINKING, player1_name, player1_name);
 		reset_output_color();
 		
 		bot_play(game, current_player, bot_dif, player1_name, turn_message);
@@ -164,7 +165,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	else
 	{
 		change_output_color(YELLOW);
-		printf("It's %s's turn.\n%s is thinking...\n", player2_name, player2_name);
+		printf(BOT_THINKING, player2_name, player2_name);
 		reset_output_color();
 
 		bot_play(game, current_player, bot_dif, player2_name, turn_message);
@@ -178,7 +179,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	
 	//prints player1's remaining pieces
 	change_output_color(BLUE);
-	printf("%s's remaining piece(s) :\n", player1_name);
+	printf(REMAINING, player1_name);
 	printf ("×: %d ; X: %d ; ╳: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_1, SMALL),
 	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
@@ -186,7 +187,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	
 	//prints player2's remaining pieces
 	change_output_color(YELLOW);
-	printf("%s's remaining piece(s) :\n", player2_name);
+	printf(REMAINING, player2_name);
 	printf ("×: %d ; X: %d ; ╳: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_2, SMALL),
 	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
@@ -197,25 +198,25 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	if (current_player == PLAYER_1)
 	{
 		change_output_color(BLUE);
-		printf("It's %s's turn.\n%s is thinking...\n\n", player1_name, player1_name);
+		printf(BOT_THINKING, player1_name, player1_name);
 		reset_output_color();
 	}
 	else
 	{
 		change_output_color(YELLOW);
-		printf("It's %s's turn.\n%s is thinking...\n\n", player2_name, player2_name);
+		printf(BOT_THINKING, player2_name, player2_name);
 		reset_output_color();
 	}
 
-	printf("%s\n", turn_message);
-	printf("Press enter to continue...");
+	printf("\n%s\n", turn_message);
+	printf(PAUSE);
 	getchar();
 }
 
 void error_message (const char message[])
 {
 	printf("%s\n", message);
-	printf("Press Return to continue...");
+	printf(PAUSE);
 	getchar();
 }
 
@@ -239,14 +240,14 @@ int declare_winner_rating(board* p_game, rating ratings[2])
 	{
 		calculate_elo_ratings(&ratings[0], &ratings[1]);
 		change_output_color(BLUE);
-		printf("%s is the WINNER !!!\n", ratings[0].player_name);
+		printf(WINNER, ratings[0].player_name);
 		reset_output_color();
 	}
 	else if (winner == PLAYER_2)
 	{
 		calculate_elo_ratings(&ratings[1], &ratings[0]);
 		change_output_color(YELLOW);
-		printf("%s is the WINNER !!!\n", ratings[1].player_name);
+		printf(WINNER, ratings[1].player_name);
 		reset_output_color();
 	}
 	save_rating(&ratings[0]);
@@ -255,7 +256,7 @@ int declare_winner_rating(board* p_game, rating ratings[2])
 	int play_again = -1;
 	while (play_again == -1)
 	{
-		printf("Do you want to play again ? ('y' or 'n')\n>");
+		printf(PLAY_AGAIN);
 		play_again = input_yes_no();
 	}
 	
@@ -278,20 +279,20 @@ int declare_winner_no_rating(board* p_game, char player1_name[], char player2_na
 	if (winner == PLAYER_1)
 	{
 		change_output_color(BLUE);
-		printf("%s is the WINNER !!!\n", player1_name);
+		printf(WINNER, player1_name);
 		reset_output_color();
 	}
 	else if (winner == PLAYER_2)
 	{
 		change_output_color(YELLOW);
-		printf("%s is the WINNER !!!\n", player2_name);
+		printf(WINNER, player2_name);
 		reset_output_color();
 	}
 
 	int play_again = -1;
 	while (play_again == -1)
 	{
-		printf("Do you want to play again ? ('y' or 'n')\n>");
+		printf(PLAY_AGAIN);
 		play_again = input_yes_no();
 	}
 	
@@ -322,14 +323,12 @@ enum possible_e determine_possible_action(board game, player current_player)
 
 int place(board game)
 {
-	printf("Please enter '1' for a small piece,");
-	printf(" '2' for a medium piece or '3' for a large piece :\n");
-	printf(">");
+	printf(SIZE_INPUT_PROMPT);
 	size piece_size = input_piece_size();
 	
 	if (piece_size == NONE)
 	{
-		error_message("Please enter a valid digit between 1 and 3 !");
+		error_message(SIZE_INPUT_ERROR);
 		return 0;
 	}
 	else if (piece_size == CANCEL_SIZE)
@@ -339,8 +338,7 @@ int place(board game)
 	
 	int dest_line = -1, dest_col = -1;
 	
-	printf("Please enter the destination place as 'XY', ");
-	printf("where X is the line and Y is the column :\n>");
+	printf(DEST_INPUT_PROMPT);
 	input_position(&dest_line, &dest_col);
 	
 	if (dest_line == -2)
@@ -349,7 +347,7 @@ int place(board game)
 		return 3;
 	else if (dest_line == -1 || dest_col == -1)
 	{
-		error_message("Please enter a valid letter followed by a valid digit !");
+		error_message(POS_INPUT_ERROR);
 		return 0;
 	}
 	
@@ -362,16 +360,16 @@ int place(board game)
 			return 1;
 			break;
 		case POSITION:
-			error_message("position error !");
+			error_message(POS_ERROR);
 			break;
 		case SOURCE:
-			error_message("You have no more piece of this size left.");
+			error_message(PLACE_SRC_ERROR);
 			break;
 		case TARGET:
-			error_message("You cannot place this piece here !");
+			error_message(PLACE_DEST_ERROR);
 			break;
 		default:
-			error_message("unkown error!");
+			error_message("[unkown error!]");
 	}
 	return 0;
 }
@@ -379,8 +377,7 @@ int place(board game)
 int move (board game)
 {
 	int src_line = -1, src_col = -1;
-	printf("Please enter the position of the piece you want to move");
-	printf("as 'XY', where X is the line and Y is the column :\n>");
+	printf(SRC_INPUT_PROMPT);
 	input_position(&src_line, &src_col);
 	
 	if (src_line == -2)
@@ -389,14 +386,13 @@ int move (board game)
 		return 3;
 	if (src_line == -1 || src_col == -1)
 	{
-		error_message("Please enter a valid letter followed by a valid digit !");
+		error_message(POS_INPUT_ERROR);
 		return 0;
 	}
 	
 	int dest_line = -1, dest_col = -1;
 	
-	printf("Please enter the destination place as 'XY',");
-	printf("where X is the line and Y is the column :\n>");
+	printf(DEST_INPUT_PROMPT);
 	input_position(&dest_line, &dest_col);
 	
 	if (dest_line == -2)
@@ -405,7 +401,7 @@ int move (board game)
 		return 3;
 	if (dest_line == -1 || dest_col == -1)
 	{
-		error_message("Please enter a valid letter followed by a valid digit !");
+		error_message(POS_INPUT_ERROR);
 		return 0;
 	}
 	
@@ -418,24 +414,24 @@ int move (board game)
 			return 1;
 			break;
 		case POSITION:
-			error_message("position error !");
+			error_message(POS_ERROR);
 			break;
 		case SOURCE:
-			error_message("There is no piece here, or the upper piece on this place is not yours.");
+			error_message(MOVE_SRC_ERROR);
 			break;
 		case TARGET:
-			error_message("You cannot place this piece here !");
+			error_message(MOVE_DEST_ERROR);
 			break;
 		default:
-			error_message("unkown error!");
+			error_message("[unkown error!]");
 	}
 	return 0;
 }
 
 void exit_game(board game)
 {
-	printf("Exiting game...\n");
-	printf("Do you want to save the current game ? (y/n)\n");
+	printf(EXITING);
+	printf(SAVE_PROMPT);
 	
 	int input = -1;
 
@@ -446,12 +442,11 @@ void exit_game(board game)
 	} 
 	if (input == 1)
 	{
-		printf("Please enter the name of the file you want to write :\n");
-		printf(">");
+		printf(FILENAME_WRITE_PROMPT);
 		char filename[FILENAME_MAX_LENGTH];
 		input_filename(filename);
 		save_game(game, filename);
-		printf("Game saved, press return to go back to the main menu...");
+		printf(SAVED);
 		getchar();
 	}
 }
