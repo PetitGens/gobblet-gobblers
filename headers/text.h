@@ -108,7 +108,7 @@ enum lang {ENGLISH, FRENCH};
 
 /**End of MENU.C**/
 
-#else if LANGUAGE == FRENCH
+#elif LANGUAGE == FRENCH
 
 #define SIZE_1 "petite"
 #define SIZE_2 "moyenne"

@@ -2,6 +2,7 @@
 *.sav
 gobblet
 .vscode
+rating.dat
 
 # Prerequisites
 *.d
