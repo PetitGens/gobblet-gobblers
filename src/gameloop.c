@@ -8,6 +8,7 @@
 #include "../headers/turn.h"
 #include "../headers/input.h"
 #include "../headers/rating.h"
+#include "../headers/text.h"
 
 #define BOT_PLAYER PLAYER_2
 
@@ -53,14 +54,14 @@ void pvp_load()
 {
     char filename[FILENAME_MAX_LENGTH];
 
-    printf("Please enter the save file name >");
+    printf(FILENAME_INPUT_PROMPT);
     
     input_filename(filename);
 
     board game = load_game(filename);
     if (game == NULL)
     {
-        error_message("The file cannot be opened, or its format is incorrect.");
+        error_message(FILE_OPENING_ERROR);
     }
     else
     {
@@ -78,7 +79,13 @@ void pvb_loop(board game, bot_difficulty_e bot_dif)
     input_single_player_name(player1_name);
     delete_carriage_return(player1_name);
 
+    
+    #if LANGUAGE == FRENCH
+    strcpy(player2_name, "ORDI");
+    #else
     strcpy(player2_name, "Bot");
+    #endif 
+    
 
     /*rating ratings[2];
     strcpy(ratings[0].player_name, player1_name);
@@ -114,14 +121,14 @@ void pvb_load(bot_difficulty_e bot_dif)
 {
     char filename[FILENAME_MAX_LENGTH];
 
-    printf("Please enter the save file name >");
+    printf(FILENAME_INPUT_PROMPT);
     
     input_filename(filename);
 
     board game = load_game(filename);
     if (game == NULL)
     {
-        error_message("The file cannot be opened, or its format is incorrect.");
+        error_message(FILE_OPENING_ERROR);
     }
     else
     {

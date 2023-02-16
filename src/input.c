@@ -3,18 +3,19 @@
 
 #include "../headers/input.h"
 #include "../headers/board.h"
+#include "../headers/text.h"
 
 void input_players_names(char name1[], char name2[])
 {
-	printf("Please enter the first player's name.\n>");
+	printf(FIRST_NAME_INPUT_PROMPT);
 	fgets(name1, NAME_MAX_LENGTH - 1, stdin);
-	printf("Please enter the second player's name.\n>");
+	printf(SECOND_NAME_INPUT_PROMPT);
 	fgets(name2, NAME_MAX_LENGTH - 1, stdin);
 }
 
 void input_single_player_name(char name[])
 {
-	printf("Please enter the first player's name.\n>");
+	printf(NAME_INPUT_PROMPT);
 	fgets(name, NAME_MAX_LENGTH - 1, stdin);
 }
 

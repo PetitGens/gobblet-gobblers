@@ -57,9 +57,58 @@ enum lang {ENGLISH, FRENCH};
 #define SAVE_PROMPT "Do you want to save the current game ? (y/n)\n"
 #define FILENAME_WRITE_PROMPT "Please enter the name of the file you want to write :\n>"
 #define SAVED "Game saved, press return to go back to the main menu..."
-/**End of TURN.C*/
+/**End of TURN.C**/
 
-#elif LANGUAGE == FRENCH
+/**INPUT.C**/
+
+#define NAME_INPUT_PROMPT "Please enter your name.\n>"
+#define FIRST_NAME_INPUT_PROMPT "Please enter the first player's name.\n>"
+#define SECOND_NAME_INPUT_PROMPT "Please enter the second player's name.\n>"
+
+/**End of INPUT.C**/
+
+/**GAMELOOP.C**/
+
+#define FILENAME_INPUT_PROMPT "Please enter the save file name >"
+#define FILE_OPENING_ERROR "The file cannot be opened, or its format is incorrect."
+
+/**End of GAMELOOP.C**/
+
+/**MENU.C**/
+
+#define GAME_TITLE "Gobblet Gobbers main menu :\n\n"
+
+#define MENU_INTRO "Enter 'pvp' to start a 2 players game.\nEnter 'help' for other commands.\n\n"
+
+#define GAME_EXITING "Exiting game program.\n"
+
+#define UNKNOWN_COMMAND "unknown command\n"
+
+/**HELP MESSAGES**/
+
+#define ALL_COMMANDS "\nAll commands :\n\n"
+
+#define HELP_BVB "- bvb : starts a game between 2 bots\n"
+#define HELP_HELP "- help : displays this text\n"
+#define HELP_LEADERBOARD "- leaderboard : displays a leaderboard stored in rating.dat\n"
+#define HELP_LOAD_PVB "- load-pvb : loads a game against a bot previously saved\n"
+#define HELP_LOAD_PVP "- load-pvp : loads a 2 players game previously saved\n"
+#define HELP_PVB "- pvb : starts a game against a bot\n"
+#define HELP_PVP "- pvp : starts a 2 players game\n"
+#define HELP_QUIT "- quit : exits the game program\n"
+
+/**End of END MESSAGES**/
+
+#define RETURN_MAIN_MENU "Press return to get back to the main menu..."
+
+#define DIFFICULTY_INPUT_PROMPT "Please choose bot difficulty (1 for easy, 2 for medium, 3 for hard) : "
+#define DIFFICULTY_INPUT_ERROR "Invalid input, press return to get back to the main menu..."
+#define FIRST_DIFFICULTY_INPUT_PROMPT "Please choose the first bot's difficulty (1 for easy, 2 for medium, 3 for hard) : "
+#define SECOND_DIFFICULTY_INPUT_PROMPT "Please choose the second bot's difficulty (1 for easy, 2 for medium, 3 for hard) : "
+
+/**End of MENU.C**/
+
+#else if LANGUAGE == FRENCH
 
 #define SIZE_1 "petite"
 #define SIZE_2 "moyenne"
