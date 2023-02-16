@@ -8,15 +8,18 @@
 void input_players_names(char name1[], char name2[])
 {
 	printf(FIRST_NAME_INPUT_PROMPT);
-	fgets(name1, NAME_MAX_LENGTH - 1, stdin);
+	if (fgets(name1, NAME_MAX_LENGTH - 1, stdin) == NULL)
+		printf("Error in name input.\n");
 	printf(SECOND_NAME_INPUT_PROMPT);
-	fgets(name2, NAME_MAX_LENGTH - 1, stdin);
+	if (fgets(name2, NAME_MAX_LENGTH - 1, stdin) == NULL)
+		printf("Error in name input.\n");
 }
 
 void input_single_player_name(char name[])
 {
 	printf(NAME_INPUT_PROMPT);
-	fgets(name, NAME_MAX_LENGTH - 1, stdin);
+	if (fgets(name, NAME_MAX_LENGTH - 1, stdin) == NULL)
+		printf("Error in name input.\n");
 }
 
 void delete_carriage_return (char string[])
@@ -36,12 +39,13 @@ void delete_carriage_return (char string[])
 enum action_e input_place_move()
 {
 	char choice = 0;
-	scanf("%c", &choice);
+	do ;
+	while(scanf("%c", &choice) <= 0);
 		
 	char buffer;
 	do
 	{
-		scanf("%c", &buffer);
+		if (scanf("%c", &buffer) <= 0);
 	} while(buffer != '\n');
 	
 	if (choice == 'p' || choice == 'P') return PLACE;
@@ -54,12 +58,13 @@ enum action_e input_place_move()
 size input_piece_size()
 {
 	char choice = 0;
-	scanf("%c", &choice);
+	do ;
+	while(scanf("%c", &choice) <= 0);
 		
 	char buffer;
 	do
 	{
-		scanf("%c", &buffer);
+		if (scanf("%c", &buffer) <= 0);
 	} while(buffer != '\n');
 	
 	if (choice == '1') return SMALL;
@@ -75,7 +80,8 @@ size input_piece_size()
 void input_position (int* p_line, int* p_col)
 {
 	char choice[2];
-	scanf("%c", &choice[0]);
+	do ;
+	while (scanf("%c", &choice[0]) <= 0);
 
 	if (choice[0] == 'r' || choice[0] == 'R')
 	{
@@ -83,7 +89,7 @@ void input_position (int* p_line, int* p_col)
 		char buffer;
 		do
 		{
-			scanf("%c", &buffer);
+			if (scanf("%c", &buffer) <= 0);
 		} while(buffer != '\n');
 		return;
 	}
@@ -93,17 +99,18 @@ void input_position (int* p_line, int* p_col)
 		char buffer;
 		do
 		{
-			scanf("%c", &buffer);
+			if (scanf("%c", &buffer) <= 0);
 		} while(buffer != '\n');
 		return;
 	}
 
-	scanf("%c", &choice[1]);
+	do;
+	while (scanf("%c", &choice[1]) <= 0);
 	
 	char buffer;
 	do
 	{
-		scanf("%c", &buffer);
+		if (scanf("%c", &buffer) <= 0);
 	} while(buffer != '\n');
 	
 	if (choice[0] >= 'A' && choice[0] <= 'C')
@@ -130,12 +137,13 @@ void input_position (int* p_line, int* p_col)
 int input_yes_no()
 {
 	char choice = 0;
-	scanf("%c", &choice);
+	do ;
+	while(scanf("%c", &choice) <= 0);
 		
 	char buffer;
 	do
 	{
-		scanf("%c", &buffer);
+		if (scanf("%c", &buffer) <= 0);
 	} while(buffer != '\n');
 	
 	if (choice == 'y' || choice == 'Y')
@@ -150,7 +158,8 @@ int input_yes_no()
 menu_choice input_main_menu()
 {
 	char choice[CHOICE_MAX_LENGTH];
-	fgets(choice, CHOICE_MAX_LENGTH - 1, stdin);
+	if (fgets(choice, CHOICE_MAX_LENGTH - 1, stdin) == NULL)
+		printf("Error in menu input.\n");
 
 	delete_carriage_return(choice);
 
@@ -189,7 +198,8 @@ void input_filename(char filename[FILENAME_MAX_LENGTH])
 {
 	do
 	{
-		fgets(filename, FILENAME_MAX_LENGTH - 1, stdin);
+		if (fgets(filename, CHOICE_MAX_LENGTH - 1, stdin) == NULL)
+			printf("Error in menu input.\n");
     	delete_carriage_return(filename);
 	} while(filename[0] == '\0');
 }
@@ -197,12 +207,13 @@ void input_filename(char filename[FILENAME_MAX_LENGTH])
 bot_difficulty_e input_bot_difficulty()
 {
 	char choice = 0;
-	scanf("%c", &choice);
+	do ;
+	while(scanf("%c", &choice) <= 0);
 		
 	char buffer;
 	do
 	{
-		scanf("%c", &buffer);
+		if (scanf("%c", &buffer) <= 0);
 	} while(buffer != '\n');
 
 	if (choice == '1') return EASY;

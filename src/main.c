@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+//#include <SDL2/SDL.h>
 
 #include "../headers/board.h"
 #include "../headers/gameloop.h"
