@@ -58,9 +58,15 @@ void print_board(board game)
 		_printf("|  ");
 		for (int col = 0; col < 3; col++)
 		{
+			#ifdef WIN64
+			wchar_t piece;
+			insert_piece(&piece, game, line, col);
+			_printf("%lc", piece);
+			#else
 			char piece[5];
 			insert_piece(piece, game, line, col);
 			_printf("%s", piece);
+			#endif
 			reset_output_color();
 			_printf("  |  ");
 		}
@@ -70,15 +76,59 @@ void print_board(board game)
 		_printf("  |_____|_____|_____|\n");
 	} 
 }
-
+#ifdef WIN64
+void insert_piece(wchar_t *piece, board game, int line, int col)
+{
+		player holder = get_place_holder(game, line, col);
+		
+		if (holder == NO_PLAYER)
+		{		
+				*piece = ' ';
+				return;
+		}
+		
+		size piece_size = get_piece_size(game, line, col);
+		
+		if (holder == PLAYER_1)
+		{
+			change_output_color(BLUE);
+			
+		}
+		else if (holder == PLAYER_2)
+		{
+			change_output_color(YELLOW);
+		}
+		
+		switch (piece_size)
+		{
+			case SMALL:
+				//strcpy(piece, "×");
+				*piece = 0x00d7;
+				break;
+			case MEDIUM:
+				*piece = 'x';
+				break;
+			case LARGE:
+				//strcpy(piece, "╳");
+				*piece = 0x2573;
+				break;
+			default:
+				*piece = ' ';	
+		}
+}
+#else
 void insert_piece(char piece[], board game, int line, int col)
 {
 		player holder = get_place_holder(game, line, col);
 		
 		if (holder == NO_PLAYER)
 		{
+				#ifdef WIN64
+				
+				#else
 				piece[0] = ' ';
 				piece[1] = '\0';
+				#endif
 				return;
 		}
 		
@@ -111,6 +161,7 @@ void insert_piece(char piece[], board game, int line, int col)
 				piece[1] = '\0';	
 		}
 }
+#endif
 
 void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings)
 {

@@ -62,7 +62,11 @@ void print_board(board game);
  * @param line } -> the position of the piece 
  * @param col  }
  */
+#ifdef WIN64
+void insert_piece(wchar_t *piece, board game, int line, int col);
+#else
 void insert_piece(char piece[], board game, int line, int col);
+#endif
 
 void print_leaderboard(rating ratings[MAX_NB_RATINGS], int nb_ratings);
 

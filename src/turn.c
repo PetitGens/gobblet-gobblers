@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../headers/turn.h"
 #include "../headers/display.h"
@@ -18,18 +19,34 @@ int human_turn(board game, char player1_name[], char player2_name[])
 		//prints player1's remaining pieces
 		change_output_color(BLUE);
 		_printf(REMAINING, player1_name);
+		
+		#ifdef WIN64
+		wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
+		get_nb_piece_in_house(game, PLAYER_1, SMALL),
+		get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
+		get_nb_piece_in_house(game, PLAYER_1, LARGE));
+		#else
 		_printf ("×: %d ; X: %d ; ╳: %d\n\n",
 		get_nb_piece_in_house(game, PLAYER_1, SMALL),
 		get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
 		get_nb_piece_in_house(game, PLAYER_1, LARGE));
+		#endif
 		
 		//prints player2's remaining pieces
 		change_output_color(YELLOW);
 		_printf(REMAINING, player2_name);
+
+		#ifdef WIN64
+		wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
+		get_nb_piece_in_house(game, PLAYER_2, SMALL),
+		get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
+		get_nb_piece_in_house(game, PLAYER_2, LARGE));
+		#else
 		_printf ("×: %d ; X: %d ; ╳: %d\n\n",
 		get_nb_piece_in_house(game, PLAYER_2, SMALL),
 		get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
 		get_nb_piece_in_house(game, PLAYER_2, LARGE));
+		#endif
 		
 		reset_output_color();
 		
@@ -134,18 +151,34 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	//prints player1's remaining pieces
 	change_output_color(BLUE);
 	_printf(REMAINING, player1_name);
+	
+	#ifdef WIN64
+	wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_1, SMALL),
+	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	#else
 	_printf ("×: %d ; X: %d ; ╳: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_1, SMALL),
 	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
 	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	#endif
 	
 	//prints player2's remaining pieces
 	change_output_color(YELLOW);
 	_printf(REMAINING, player2_name);
+	
+	#ifdef WIN64
+	wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_2, SMALL),
+	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	#else
 	_printf ("×: %d ; X: %d ; ╳: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_2, SMALL),
 	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
 	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	#endif
 	
 	reset_output_color();
 	
@@ -179,19 +212,34 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	
 	//prints player1's remaining pieces
 	change_output_color(BLUE);
-	_printf(REMAINING, player1_name);
+	
+	#ifdef WIN64
+	wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_1, SMALL),
+	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	#else
 	_printf ("×: %d ; X: %d ; ╳: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_1, SMALL),
 	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
 	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	#endif
 	
 	//prints player2's remaining pieces
 	change_output_color(YELLOW);
 	_printf(REMAINING, player2_name);
+	
+	#ifdef WIN64
+	wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_2, SMALL),
+	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	#else
 	_printf ("×: %d ; X: %d ; ╳: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_2, SMALL),
 	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
 	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	#endif
 	
 	reset_output_color();
 	

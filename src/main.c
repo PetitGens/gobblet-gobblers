@@ -14,6 +14,7 @@
 #include "../headers/rating.h"
 #include "../headers/display.h"
 #include "../headers/bot.h"
+#include "../headers/text.h"
 
 int main()
 {

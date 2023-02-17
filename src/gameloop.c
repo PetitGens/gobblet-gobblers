@@ -10,6 +10,7 @@
 #include "../headers/rating.h"
 #include "../headers/text.h"
 
+
 #define BOT_PLAYER PLAYER_2
 
 #ifdef DEBUG
@@ -82,6 +83,7 @@ void pvb_loop(board game, bot_difficulty_e bot_dif)
     
     #if LANGUAGE == FRENCH
     strcpy(player2_name, "ORDI");
+    _printf("Hello World!\n");
     #else
     strcpy(player2_name, "Bot");
     #endif 
