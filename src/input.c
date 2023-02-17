@@ -4,22 +4,23 @@
 #include "../headers/input.h"
 #include "../headers/board.h"
 #include "../headers/text.h"
+#include "../headers/display.h"
 
 void input_players_names(char name1[], char name2[])
 {
-	printf(FIRST_NAME_INPUT_PROMPT);
+	_printf(FIRST_NAME_INPUT_PROMPT);
 	if (fgets(name1, NAME_MAX_LENGTH - 1, stdin) == NULL)
-		printf("Error in name input.\n");
-	printf(SECOND_NAME_INPUT_PROMPT);
+		_printf("Error in name input.\n");
+	_printf(SECOND_NAME_INPUT_PROMPT);
 	if (fgets(name2, NAME_MAX_LENGTH - 1, stdin) == NULL)
-		printf("Error in name input.\n");
+		_printf("Error in name input.\n");
 }
 
 void input_single_player_name(char name[])
 {
-	printf(NAME_INPUT_PROMPT);
+	_printf(NAME_INPUT_PROMPT);
 	if (fgets(name, NAME_MAX_LENGTH - 1, stdin) == NULL)
-		printf("Error in name input.\n");
+		_printf("Error in name input.\n");
 }
 
 void delete_carriage_return (char string[])
@@ -159,7 +160,7 @@ menu_choice input_main_menu()
 {
 	char choice[CHOICE_MAX_LENGTH];
 	if (fgets(choice, CHOICE_MAX_LENGTH - 1, stdin) == NULL)
-		printf("Error in menu input.\n");
+		_printf("Error in menu input.\n");
 
 	delete_carriage_return(choice);
 
@@ -199,7 +200,7 @@ void input_filename(char filename[FILENAME_MAX_LENGTH])
 	do
 	{
 		if (fgets(filename, CHOICE_MAX_LENGTH - 1, stdin) == NULL)
-			printf("Error in menu input.\n");
+			_printf("Error in menu input.\n");
     	delete_carriage_return(filename);
 	} while(filename[0] == '\0');
 }

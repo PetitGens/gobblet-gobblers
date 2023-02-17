@@ -54,7 +54,7 @@ void pvp_load()
 {
     char filename[FILENAME_MAX_LENGTH];
 
-    printf(FILENAME_INPUT_PROMPT);
+    _printf(FILENAME_INPUT_PROMPT);
     
     input_filename(filename);
 
@@ -121,7 +121,7 @@ void pvb_load(bot_difficulty_e bot_dif)
 {
     char filename[FILENAME_MAX_LENGTH];
 
-    printf(FILENAME_INPUT_PROMPT);
+    _printf(FILENAME_INPUT_PROMPT);
     
     input_filename(filename);
 

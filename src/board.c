@@ -359,7 +359,7 @@ board load_game(char * filename)
 	FILE * stream = fopen(filename, "r");
 	if (stream == NULL)
 	{
-		//printf("erreur d'ouverture du fichier\n");
+		//_printf("erreur d'ouverture du fichier\n");
 		return NULL;
 	}
 
@@ -371,7 +371,7 @@ board load_game(char * filename)
 	{
 		if (fscanf(stream, "%c", &input) == EOF)
 		{
-			//printf("fin prématurée du fichier\n");
+			//_printf("fin prématurée du fichier\n");
 			return NULL;
 		}
 
@@ -379,7 +379,7 @@ board load_game(char * filename)
 		{
 			if (input < '0' || input > '9')
 			{
-				//printf("caractère inattendu rencontré : %c\n", input);
+				//_printf("caractère inattendu rencontré : %c\n", input);
 				return NULL;
 			}
 
@@ -397,7 +397,7 @@ board load_game(char * filename)
 			{
 				if (fscanf(stream, "%c", &input) == EOF)
 				{
-					//printf("fin prématurée du fichier\n");
+					//_printf("fin prématurée du fichier\n");
 					return NULL;
 				}
 
@@ -405,7 +405,7 @@ board load_game(char * filename)
 				{
 					if (input < '0' || input > '9')
 					{
-						//printf("caractère inattendu rencontré : %c\n", input);
+						//_printf("caractère inattendu rencontré : %c\n", input);
 						return NULL;
 					}
 
@@ -436,7 +436,7 @@ board load_game(char * filename)
 				{
 					if (input < '0' || input > '9')
 					{
-						//printf("caractère inattendu rencontré : %c\n", input);
+						//_printf("caractère inattendu rencontré : %c\n", input);
 						return NULL;
 					}
 
@@ -458,7 +458,7 @@ board load_game(char * filename)
 					{
 						if (input < '0' || input > '9')
 						{
-							//printf("caractère inattendu rencontré : %c\n", input);
+							//_printf("caractère inattendu rencontré : %c\n", input);
 							return NULL;
 						}
 

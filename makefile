@@ -9,7 +9,7 @@ else
 DEBUGGING = -DNDEBUG
 endif
 
-gobblet : bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o bin/bot.o
+gobblet* : bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o bin/bot.o
 	cc $(WARN) -o gobblet bin/main.o bin/board.o bin/display.o bin/turn.o bin/input.o bin/gameloop.o bin/menu.o bin/rating.o bin/bot.o $(SDL) -lm $(OPTI) $(DEBUGGING)
 
 bin/main.o : src/main.c
