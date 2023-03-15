@@ -1,8 +1,13 @@
 #ifndef __TEXT_H__
 #define __TEXT_H__
 
+#define TEXT_MAX_SIZE 128
+
 #define ENGLISH 0
 #define FRENCH 1
+
+
+//enum lang {ENGLISH, FRENCH};
 
 #define LANGUAGE FRENCH
 

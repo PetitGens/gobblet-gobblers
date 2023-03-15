@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../headers/turn.h"
 #include "../headers/display.h"
@@ -13,23 +14,39 @@ int human_turn(board game, char player1_name[], char player2_name[])
 	{
 		clear_screen();
 		print_board(game);
-		printf("\n");
+		_printf("\n");
 		
 		//prints player1's remaining pieces
 		change_output_color(BLUE);
-		printf(REMAINING, player1_name);
-		printf ("×: %d ; X: %d ; ╳: %d\n\n",
+		_printf(REMAINING, player1_name);
+		
+		#ifdef WIN64
+		wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
 		get_nb_piece_in_house(game, PLAYER_1, SMALL),
 		get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
 		get_nb_piece_in_house(game, PLAYER_1, LARGE));
+		#else
+		_printf ("×: %d ; X: %d ; ╳: %d\n\n",
+		get_nb_piece_in_house(game, PLAYER_1, SMALL),
+		get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
+		get_nb_piece_in_house(game, PLAYER_1, LARGE));
+		#endif
 		
 		//prints player2's remaining pieces
 		change_output_color(YELLOW);
-		printf(REMAINING, player2_name);
-		printf ("×: %d ; X: %d ; ╳: %d\n\n",
+		_printf(REMAINING, player2_name);
+
+		#ifdef WIN64
+		wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
 		get_nb_piece_in_house(game, PLAYER_2, SMALL),
 		get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
 		get_nb_piece_in_house(game, PLAYER_2, LARGE));
+		#else
+		_printf ("×: %d ; X: %d ; ╳: %d\n\n",
+		get_nb_piece_in_house(game, PLAYER_2, SMALL),
+		get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
+		get_nb_piece_in_house(game, PLAYER_2, LARGE));
+		#endif
 		
 		reset_output_color();
 		
@@ -39,18 +56,18 @@ int human_turn(board game, char player1_name[], char player2_name[])
 		if (current_player == PLAYER_1)
 		{
 			change_output_color(BLUE);
-			printf(YOUR_TURN, player1_name);
+			_printf(YOUR_TURN, player1_name);
 			reset_output_color();
 		}
 		else
 		{
 			change_output_color(YELLOW);
-			printf(YOUR_TURN, player2_name);
+			_printf(YOUR_TURN, player2_name);
 			reset_output_color();
 		}
 
-		printf(RESTART_INDICATION);
-		printf(QUIT_INDICATION);
+		_printf(RESTART_INDICATION);
+		_printf(QUIT_INDICATION);
 		
 		//determines the possible actions for the current player
 		enum possible_e possible_action = determine_possible_action(game,
@@ -62,7 +79,7 @@ int human_turn(board game, char player1_name[], char player2_name[])
 		if (possible_action == ANY)
 		{
 			//action choice
-			printf(ACTION_INPUT_PROMPT);
+			_printf(ACTION_INPUT_PROMPT);
 			action = input_place_move();
 			if (action == ERROR)
 			{
@@ -92,8 +109,8 @@ int human_turn(board game, char player1_name[], char player2_name[])
 				not_valid = 0;
 			else if (action_return == 2)
 			{
-				printf(CANCELLED);
-				printf(PAUSE);
+				_printf(CANCELLED);
+				_printf(PAUSE);
 				getchar();
 				continue;
 			}
@@ -110,8 +127,8 @@ int human_turn(board game, char player1_name[], char player2_name[])
 				not_valid = 0;
 			else if (action_return == 2)
 			{
-				printf(CANCELLED);
-				printf(PAUSE);
+				_printf(CANCELLED);
+				_printf(PAUSE);
 				getchar();
 				continue;
 			}
@@ -129,23 +146,39 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 {
 	clear_screen();
 	print_board(game);
-	printf("\n");
+	_printf("\n");
 	
 	//prints player1's remaining pieces
 	change_output_color(BLUE);
-	printf(REMAINING, player1_name);
-	printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	_printf(REMAINING, player1_name);
+	
+	#ifdef WIN64
+	wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_1, SMALL),
 	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
 	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	#else
+	_printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_1, SMALL),
+	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	#endif
 	
 	//prints player2's remaining pieces
 	change_output_color(YELLOW);
-	printf(REMAINING, player2_name);
-	printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	_printf(REMAINING, player2_name);
+	
+	#ifdef WIN64
+	wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_2, SMALL),
 	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
 	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	#else
+	_printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_2, SMALL),
+	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	#endif
 	
 	reset_output_color();
 	
@@ -157,7 +190,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	if (current_player == PLAYER_1)
 	{
 		change_output_color(BLUE);
-		printf(BOT_THINKING, player1_name, player1_name);
+		_printf(BOT_THINKING, player1_name, player1_name);
 		reset_output_color();
 		
 		bot_play(game, current_player, bot_dif, player1_name, turn_message);
@@ -165,7 +198,7 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 	else
 	{
 		change_output_color(YELLOW);
-		printf(BOT_THINKING, player2_name, player2_name);
+		_printf(BOT_THINKING, player2_name, player2_name);
 		reset_output_color();
 
 		bot_play(game, current_player, bot_dif, player2_name, turn_message);
@@ -175,48 +208,65 @@ void bot_turn(board game, char player1_name[], char player2_name[], bot_difficul
 
 	clear_screen();
 	print_board(game);
-	printf("\n");
+	_printf("\n");
 	
 	//prints player1's remaining pieces
 	change_output_color(BLUE);
-	printf(REMAINING, player1_name);
-	printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	_printf(REMAINING, player1_name);
+
+	
+	#ifdef WIN64
+	wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_1, SMALL),
 	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
 	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	#else
+	_printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_1, SMALL),
+	get_nb_piece_in_house(game, PLAYER_1, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_1, LARGE));
+	#endif
 	
 	//prints player2's remaining pieces
 	change_output_color(YELLOW);
-	printf(REMAINING, player2_name);
-	printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	_printf(REMAINING, player2_name);
+	
+	#ifdef WIN64
+	wprintf (L"\x00d7: %d ; X: %d ; \x2573: %d\n\n",
 	get_nb_piece_in_house(game, PLAYER_2, SMALL),
 	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
 	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	#else
+	_printf ("×: %d ; X: %d ; ╳: %d\n\n",
+	get_nb_piece_in_house(game, PLAYER_2, SMALL),
+	get_nb_piece_in_house(game, PLAYER_2, MEDIUM),
+	get_nb_piece_in_house(game, PLAYER_2, LARGE));
+	#endif
 	
 	reset_output_color();
 	
 	if (current_player == PLAYER_1)
 	{
 		change_output_color(BLUE);
-		printf(BOT_THINKING, player1_name, player1_name);
+		_printf(BOT_THINKING, player1_name, player1_name);
 		reset_output_color();
 	}
 	else
 	{
 		change_output_color(YELLOW);
-		printf(BOT_THINKING, player2_name, player2_name);
+		_printf(BOT_THINKING, player2_name, player2_name);
 		reset_output_color();
 	}
 
-	printf("\n%s\n", turn_message);
-	printf(PAUSE);
+	_printf("\n%s\n", turn_message);
+	_printf(PAUSE);
 	getchar();
 }
 
 void error_message (const char message[])
 {
-	printf("%s\n", message);
-	printf(PAUSE);
+	_printf("%s\n", message);
+	_printf(PAUSE);
 	getchar();
 }
 
@@ -235,19 +285,19 @@ int declare_winner_rating(board* p_game, rating ratings[2])
 
 	clear_screen();
 	print_board(*p_game);
-	printf("\n");
+	_printf("\n");
 	if (winner == PLAYER_1)
 	{
 		calculate_elo_ratings(&ratings[0], &ratings[1]);
 		change_output_color(BLUE);
-		printf(WINNER, ratings[0].player_name);
+		_printf(WINNER, ratings[0].player_name);
 		reset_output_color();
 	}
 	else if (winner == PLAYER_2)
 	{
 		calculate_elo_ratings(&ratings[1], &ratings[0]);
 		change_output_color(YELLOW);
-		printf(WINNER, ratings[1].player_name);
+		_printf(WINNER, ratings[1].player_name);
 		reset_output_color();
 	}
 	save_rating(&ratings[0]);
@@ -256,7 +306,7 @@ int declare_winner_rating(board* p_game, rating ratings[2])
 	int play_again = -1;
 	while (play_again == -1)
 	{
-		printf(PLAY_AGAIN);
+		_printf(PLAY_AGAIN);
 		play_again = input_yes_no();
 	}
 	
@@ -275,24 +325,24 @@ int declare_winner_no_rating(board* p_game, char player1_name[], char player2_na
 
 	clear_screen();
 	print_board(*p_game);
-	printf("\n");
+	_printf("\n");
 	if (winner == PLAYER_1)
 	{
 		change_output_color(BLUE);
-		printf(WINNER, player1_name);
+		_printf(WINNER, player1_name);
 		reset_output_color();
 	}
 	else if (winner == PLAYER_2)
 	{
 		change_output_color(YELLOW);
-		printf(WINNER, player2_name);
+		_printf(WINNER, player2_name);
 		reset_output_color();
 	}
 
 	int play_again = -1;
 	while (play_again == -1)
 	{
-		printf(PLAY_AGAIN);
+		_printf(PLAY_AGAIN);
 		play_again = input_yes_no();
 	}
 	
@@ -323,7 +373,7 @@ enum possible_e determine_possible_action(board game, player current_player)
 
 int place(board game)
 {
-	printf(SIZE_INPUT_PROMPT);
+	_printf(SIZE_INPUT_PROMPT);
 	size piece_size = input_piece_size();
 	
 	if (piece_size == NONE)
@@ -338,7 +388,7 @@ int place(board game)
 	
 	int dest_line = -1, dest_col = -1;
 	
-	printf(DEST_INPUT_PROMPT);
+	_printf(DEST_INPUT_PROMPT);
 	input_position(&dest_line, &dest_col);
 	
 	if (dest_line == -2)
@@ -377,7 +427,7 @@ int place(board game)
 int move (board game)
 {
 	int src_line = -1, src_col = -1;
-	printf(SRC_INPUT_PROMPT);
+	_printf(SRC_INPUT_PROMPT);
 	input_position(&src_line, &src_col);
 	
 	if (src_line == -2)
@@ -392,7 +442,7 @@ int move (board game)
 	
 	int dest_line = -1, dest_col = -1;
 	
-	printf(DEST_INPUT_PROMPT);
+	_printf(DEST_INPUT_PROMPT);
 	input_position(&dest_line, &dest_col);
 	
 	if (dest_line == -2)
@@ -430,23 +480,23 @@ int move (board game)
 
 void exit_game(board game)
 {
-	printf(EXITING);
-	printf(SAVE_PROMPT);
+	_printf(EXITING);
+	_printf(SAVE_PROMPT);
 	
 	int input = -1;
 
 	while(input == -1)
 	{
-		printf(">");
+		_printf(">");
 		input = input_yes_no();
 	} 
 	if (input == 1)
 	{
-		printf(FILENAME_WRITE_PROMPT);
+		_printf(FILENAME_WRITE_PROMPT);
 		char filename[FILENAME_MAX_LENGTH];
 		input_filename(filename);
 		save_game(game, filename);
-		printf(SAVED);
+		_printf(SAVED);
 		getchar();
 	}
 }

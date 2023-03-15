@@ -10,6 +10,7 @@
 #include "../headers/rating.h"
 #include "../headers/text.h"
 
+
 #define BOT_PLAYER PLAYER_2
 
 #ifdef DEBUG
@@ -54,7 +55,7 @@ void pvp_load()
 {
     char filename[FILENAME_MAX_LENGTH];
 
-    printf(FILENAME_INPUT_PROMPT);
+    _printf(FILENAME_INPUT_PROMPT);
     
     input_filename(filename);
 
@@ -82,6 +83,7 @@ void pvb_loop(board game, bot_difficulty_e bot_dif)
     
     #if LANGUAGE == FRENCH
     strcpy(player2_name, "ORDI");
+    _printf("Hello World!\n");
     #else
     strcpy(player2_name, "Bot");
     #endif 
@@ -121,7 +123,7 @@ void pvb_load(bot_difficulty_e bot_dif)
 {
     char filename[FILENAME_MAX_LENGTH];
 
-    printf(FILENAME_INPUT_PROMPT);
+    _printf(FILENAME_INPUT_PROMPT);
     
     input_filename(filename);
 

@@ -19,14 +19,14 @@ void main_menu()
         {
             clear_screen();
 
-            printf(GAME_TITLE);
+            _printf(GAME_TITLE);
 
-            printf(MENU_INTRO);
+            _printf(MENU_INTRO);
 
             display_intro = false;
         }
 
-        printf(">");
+        _printf(">");
         menu_choice input = input_main_menu();
 
         switch(input)
@@ -55,7 +55,7 @@ void main_menu()
                 display_intro = true;
                 break;
             case QUIT:
-                printf(GAME_EXITING);
+                _printf(GAME_EXITING);
                 running = false;
                 break;
             case LEADERBOARD:
@@ -63,25 +63,25 @@ void main_menu()
                 display_intro = true;
                 break;
             default:
-                printf(UNKNOWN_COMMAND);
+                _printf(UNKNOWN_COMMAND);
         }
     }
 }
 
 void main_help()
 {
-    printf(ALL_COMMANDS);
+    _printf(ALL_COMMANDS);
 
-    printf(HELP_BVB);
-    printf(HELP_HELP);
-    printf(HELP_LEADERBOARD);
-    printf(HELP_LOAD_PVB);
-    printf(HELP_LOAD_PVP);
-    printf(HELP_PVB);
-    printf(HELP_PVP);
-    printf(HELP_QUIT);
+    _printf(HELP_BVB);
+    _printf(HELP_HELP);
+    _printf(HELP_LEADERBOARD);
+    _printf(HELP_LOAD_PVB);
+    _printf(HELP_LOAD_PVP);
+    _printf(HELP_PVB);
+    _printf(HELP_PVP);
+    _printf(HELP_QUIT);
 
-    printf("\n");
+    _printf("\n");
 }
 
 void leaderboard()
@@ -92,15 +92,15 @@ void leaderboard()
 
     clear_screen();
     print_leaderboard(ratings, nb_ratings);
-    printf(RETURN_MAIN_MENU);
+    _printf(RETURN_MAIN_MENU);
     getchar();
 }
 
 void menu_start_pvb(){
-    printf(DIFFICULTY_INPUT_PROMPT);
+    _printf(DIFFICULTY_INPUT_PROMPT);
     bot_difficulty_e bot_diff = input_bot_difficulty();
     if (bot_diff == -1){
-        printf(DIFFICULTY_INPUT_ERROR);
+        _printf(DIFFICULTY_INPUT_ERROR);
         getchar();
         return;
     }
@@ -108,10 +108,10 @@ void menu_start_pvb(){
 }
 
 void menu_load_pvb(){
-    printf(DIFFICULTY_INPUT_PROMPT);
+    _printf(DIFFICULTY_INPUT_PROMPT);
     bot_difficulty_e bot_diff = input_bot_difficulty();
     if (bot_diff == -1){
-        printf(DIFFICULTY_INPUT_ERROR);
+        _printf(DIFFICULTY_INPUT_ERROR);
         getchar();
         return;
     }
@@ -119,17 +119,17 @@ void menu_load_pvb(){
 }
 
 void menu_start_bvb(){
-    printf(FIRST_DIFFICULTY_INPUT_PROMPT);
+    _printf(FIRST_DIFFICULTY_INPUT_PROMPT);
     bot_difficulty_e bot_diff = input_bot_difficulty();
     if (bot_diff == -1){
-        printf(DIFFICULTY_INPUT_ERROR);
+        _printf(DIFFICULTY_INPUT_ERROR);
         getchar();
         return;
     }
-    printf(SECOND_DIFFICULTY_INPUT_PROMPT);
+    _printf(SECOND_DIFFICULTY_INPUT_PROMPT);
     bot_difficulty_e bot_diff2 = input_bot_difficulty();
     if (bot_diff2 == -1){
-        printf(DIFFICULTY_INPUT_ERROR);
+        _printf(DIFFICULTY_INPUT_ERROR);
         getchar();
         return;
     }
